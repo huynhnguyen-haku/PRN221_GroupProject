@@ -1,0 +1,69 @@
+﻿@page
+@model StyleShopping.Pages.DetailModel
+<div class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+
+            <!--Content Side-->
+            <div class="content-side col-xl-9 col-lg-8 col-md-12">
+                <div class="shop-single">
+                    <div class="product-details">
+
+                        <!--Basic Details-->
+                        <div class="basic-details">
+                            <div class="row clearfix">
+                                <div class="image-column col-md-6 col-sm-12">
+                                    <figure class="image-box"><a href="" class="lightbox-image" title="Image Caption Here"><img style="width:360px;height:360px;" src="@Model.interior.Image" alt=""></a></figure>
+                                </div>
+                                <div class="info-column col-md-6 col-sm-12">
+                                    <div class="details-header">
+                                        <h4>@Model.interior.Name</h4>
+                                        <div class="item-price">$@Model.interior.Price</div>
+                                    </div>
+
+                                    <div class="text">@Model.interior.Detail</div>
+                                    <div class="other-options clearfix">
+                                        <div class="item-quantity"><input class="quantity-spinner" type="number" value="2" name="quantity"></div>
+                                        <button type="button" class="theme-btn btn-style-one add-to-cart">Add To Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Sidebar Side-->
+            <div class="sidebar-side col-xl-3 col-lg-4 col-md-12">
+                <aside class="sidebar">
+
+
+                    <!--Blog Category Widget-->
+                    <div class="sidebar-widget sidebar-blog-category">
+                        <div class="sidebar-title">
+                            <h2>Categories</h2>
+                            <div class="separater"></div>
+                        </div>
+                        <ul class="cat-list">
+                            <li class="clearfix"><a asp-page="./Index">All</a></li>
+                            @foreach (var item in Model.listC)
+                            {
+                                <li class="clearfix">
+                                    <a asp-page="./Index" asp-route-id1="@item.Id" asp-route-id2="1">@item.Name</a>
+
+                                </li>
+                            }
+
+
+                        </ul>
+                    </div>
+
+                    <!-- Price Filters -->
+                    
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
