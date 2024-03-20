@@ -1,0 +1,80 @@
+﻿@page
+@model IndexModel
+<div class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <!--Content Side-->
+            <div class="content-side col-xl-9 col-lg-8 col-md-12">
+                <div class="our-shop">
+                    <div class="row clearfix">
+                        @foreach(var item in Model.list){
+                            <div class="shop-item col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <div class="image">
+                                        <img src="@item.Image" alt="" style="width:250px;height:250px;"/>
+                                        <div class="overlay-box">
+                                            <ul class="cart-option">
+                                                <li><a href="shop-single.html"><span class="fa fa-link"></span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="lower-content">
+                                        <h3><a href="shop-single.html">@item.Name</a></h3>
+                                        <div class="price">$@item.Price</div>
+                                        <div class="clearfix">
+                                            <div class="pull-left">
+                                                <a class="add-cart" href="shop-single.html"><span class="fa fa-cart-plus"></span>Add To Cart</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <!--Shop Item-->
+                        
+                    </div>
+
+                    <!--Post Share Options-->
+                    <div class="styled-pagination">
+                        <ul class="clearfix">
+                            @for(int i = 1;i <= Model.totalPage;i++){
+                                <li class="@(Model.indexPage == i ? "active":"")"><a asp-page="./Index" asp-route-id1="@Model.cate_id" asp-route-id2="@i">@i</a></li>
+                            }
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--Sidebar Side-->
+            <div class="sidebar-side col-xl-3 col-lg-4 col-md-12">
+                <aside class="sidebar">
+
+
+                    <!--Blog Category Widget-->
+                    <div class="sidebar-widget sidebar-blog-category">
+                        <div class="sidebar-title">
+                            <h3>Categories</h3>
+                            <div class="separater"></div>
+                        </div>
+                        <ul class="cat-list">
+                            <li class="clearfix @(Model.cate_id == null ?"active":"")"><a asp-page="./Index">All</a></li>
+                            @foreach(var item in Model.listC){
+                                <li class="clearfix @(Model.cate_id == item.Id ?"active":"")"><a asp-page="./Index" asp-route-id1="@item.Id" asp-route-id2="@Model.indexPage">@item.Name</a>
+
+                                </li>
+                            }
+                            
+                           
+                        </ul>
+                    </div>
+
+                    
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+
