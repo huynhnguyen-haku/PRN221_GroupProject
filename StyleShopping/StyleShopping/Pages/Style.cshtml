@@ -1,4 +1,39 @@
 ﻿@page
 @model StyleShopping.Pages.StyleModel
-@{
-}
+
+    <div class="auto-container mt-2">
+        <div class="row">
+            <!-- News Block -->
+            @foreach(var item in Model.list)
+            {
+                <div class="news-block-two col-lg-6 col-md-12 col-sm-12">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <figure class="image"><img src="@item.Image" alt=""></figure>
+                            <div class="overlay-box"><a asp-page="./StyleDetail" asp-route-id="@item.Id"><i class="fa fa-link"></i></a></div>
+                        </div>
+                        <div class="caption-box">
+                            <div class="inner">
+                                <h3><a asp-page="./StyleDetail" asp-route-id="@item.Id">@item.Name</a></h3>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+
+            
+        </div>
+
+        <!--Post Share Options-->
+       <div class="styled-pagination">
+                        <ul class="clearfix">
+                @for (int i = 1; i <= Model.totalPage; i++)
+                {
+                                    <li class="@(Model.indexPage == i ? "active":"")"><a asp-page="./Style" asp-route-id="@i">@i</a></li>
+                }
+
+                        </ul>
+                    </div>
+    </div>

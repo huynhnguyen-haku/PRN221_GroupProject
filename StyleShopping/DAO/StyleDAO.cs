@@ -30,8 +30,11 @@ namespace StyleShopping.DAO
             List<Style> styles;
             try
             {
-                    var MySale = new styleContext();           
-                    styles = MySale.Styles.ToList();             
+
+                using (var MySale = new styleContext())
+                {
+                    styles = MySale.Styles.ToList();
+                }
             }
             catch (Exception e)
             {
@@ -47,8 +50,10 @@ namespace StyleShopping.DAO
             Style style = null;
             try
             {
-                var MySale = new styleContext();              
-                style = MySale.Styles.SingleOrDefault(x => x.Id == id);             
+                using (var MySale = new styleContext())
+                {
+                    style = MySale.Styles.SingleOrDefault(x => x.Id == id);
+                }
             }
             catch (Exception e)
             {
