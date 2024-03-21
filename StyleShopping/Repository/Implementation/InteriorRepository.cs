@@ -23,5 +23,7 @@ namespace Repository.Implementation
 
         public List<Interior> ListByCate(int? id) => InteriorDAO.Instance.ListByCategory(id);
 
+        public Interior Get(int id) => InteriorDAO.Instance.Get(id);
+
     }
 }
