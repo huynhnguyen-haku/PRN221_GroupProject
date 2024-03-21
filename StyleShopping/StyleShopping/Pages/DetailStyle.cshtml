@@ -1,4 +1,48 @@
 ﻿@page
 @model StyleShopping.Pages.DetailStyleModel
-@{
-}
+<div class="sidebar-page-container">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <!--Sidebar Side-->
+            <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                <aside class="sidebar services-sidebar">
+
+                    <!--Blog Category Widget-->
+                    <div class="sidebar-widget sidebar-blog-category">
+                        <ul class="blog-cat">
+                            @foreach(var item in Model.list)
+                            {
+                                <li class="@(item.Id == Model.idNow ?"active":"")"><a asp-page="./DetailStyle" asp-route-id="@item.Id">@item.Name</a></li>
+                            }
+                           
+
+                        </ul>
+                    </div>
+
+                    <!--Brochure-->
+                    
+
+                   
+                </aside>
+            </div>
+
+            <!--Content Side-->
+            <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                <div class="service-detail">
+                    <div class="inner-box">
+                        <div class="image-box">
+                            <div class="">
+                                <figure class="image"><img src="@Model.style.Image" alt="" /></figure>
+                            </div>
+                        </div>
+                        <h2>@Model.style.Name</h2>
+                        <div class="text">
+                            <p>@Model.style.Detail</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

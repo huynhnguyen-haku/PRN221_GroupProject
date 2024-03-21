@@ -10,11 +10,11 @@
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><img src="@item.Image" alt=""></figure>
-                            <div class="overlay-box"><a asp-page="./StyleDetail" asp-route-id="@item.Id"><i class="fa fa-link"></i></a></div>
+                        <div class="overlay-box"><a asp-page="./DetailStyle" asp-route-id="@item.Id"><i class="fa fa-link"></i></a></div>
                         </div>
                         <div class="caption-box">
                             <div class="inner">
-                                <h3><a asp-page="./StyleDetail" asp-route-id="@item.Id">@item.Name</a></h3>
+                                <h3><a asp-page="./DetailStyle" asp-route-id="@item.Id">@item.Name</a></h3>
 
                             </div>
                         </div>
