@@ -18,5 +18,7 @@ namespace Service.Interface
         public void Update(Interior interior);
 
         public IEnumerable<Category> ListCategory();
+
+        Interior Get(int id);
     }
 }

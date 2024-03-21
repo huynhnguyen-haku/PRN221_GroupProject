@@ -20,6 +20,8 @@ namespace Service.Implementation
 
         public void Delete(int id) => _repository.Delete(id);
 
+        public Interior Get(int id) => _repository.Get(id);
+
         public List<Interior> List(int? cate_id)
         {
             List<Interior> list = _repository.List();
@@ -34,5 +36,6 @@ namespace Service.Implementation
         public IEnumerable<Category> ListCategory() => _repository.ListCategory();
 
         public void Update(Interior interior) => _repository.Update(interior);
+
     }
 }
