@@ -11,6 +11,6 @@ namespace Service.Interface
     {
         public IEnumerable<Style> List();
 
-        public Style Get(int id);
+        Style Get(int id);
     }
 }
