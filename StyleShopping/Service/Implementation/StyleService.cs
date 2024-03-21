@@ -12,13 +12,13 @@ namespace Service.Implementation
 {
     public class StyleService : IStyleService
     {
-        private IStyleRepository _repository;
+        private IStyleRepository _styleRepository;
         public StyleService()
         {
-            _repository = new StyleRepository();
+            _styleRepository = new StyleRepository();
         }
-        public Style Get(int id) => _repository.Get(id);
+        public Style Get(int id) => _styleRepository.Get(id);
 
-        public IEnumerable<Style> List() => _repository.List();
+        public IEnumerable<Style> List() => _styleRepository.List();
     }
 }
