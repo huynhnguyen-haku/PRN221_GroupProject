@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,6 +94,23 @@ namespace DAO
             }
             return detail;
         }
+        public List<QuotationDetail> GetCart(int user_id)
+        {
+            List<QuotationDetail> list = null;
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    Quotation q = MySale.Quotations.FirstOrDefault(x => x.AccountId == user_id);
+                    list = MySale.QuotationDetails.Include(x => x.Interior).Where(x => x.QuotationId == q.QuotationId).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return list;
+        }
         public void UpdateQuotationDetail(QuotationDetail detail)
         {
             try
@@ -100,6 +118,22 @@ namespace DAO
                 using (var MySale = new styleContext())
                 {
                     MySale.QuotationDetails.Update(detail);
+                    MySale.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void RemoveQuotationDetail(int id)
+        {
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    var q = MySale.QuotationDetails.FirstOrDefault(X => X.QuotationDetailId == id); 
+                    MySale.QuotationDetails.Remove(q);
                     MySale.SaveChanges();
                 }
             }
