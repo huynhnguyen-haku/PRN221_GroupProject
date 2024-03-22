@@ -20,5 +20,9 @@ namespace Repository.Implementation
         public QuotationDetail GetQuotationDetail(int id,int productID) => QuotationDAO.Instance.GetQuotationDetail(id,productID);
 
         public void UpdateQuotationDetail(QuotationDetail detail) => QuotationDAO.Instance.UpdateQuotationDetail(detail);
+
+        public List<QuotationDetail> GetCart(int user_id) => QuotationDAO.Instance.GetCart(user_id);
+
+        public void RemoveQuotationDetail(int id) => QuotationDAO.Instance.RemoveQuotationDetail(id);
     }
 }

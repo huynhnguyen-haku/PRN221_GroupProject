@@ -42,5 +42,15 @@ namespace Service.Implementation
         {
             _repository.UpdateQuotationDetail(detail);
         }
+
+        public List<QuotationDetail> GetCart(int user_id)
+        {
+            return _repository.GetCart(user_id);
+        }
+
+        public void RemoveQuotationDetail(int id)
+        {
+            _repository.RemoveQuotationDetail(id);
+        }
     }
 }

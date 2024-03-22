@@ -18,5 +18,9 @@ namespace Repository.Interface
         public QuotationDetail GetQuotationDetail(int id, int productID);
 
         public void UpdateQuotationDetail(QuotationDetail detail);
+
+        public List<QuotationDetail> GetCart(int user_id);
+
+        public void RemoveQuotationDetail(int id);
     }
 }
