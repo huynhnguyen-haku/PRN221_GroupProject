@@ -1,5 +1,6 @@
 ﻿@page
 @model StyleShopping.Pages.ProjectModel
+
 <section class="blog-section">
     <div class="text-center"><h1>Projects</h1></div>
     <div class="auto-container mt-2">
@@ -10,7 +11,7 @@
                     <div class="inner-box">
                         <div class="image-box">
                             <figure class="image"><img src="@item.Image" alt=""></figure>
-                            <div class="overlay-box"><a href="blog-detail.html"><i class="fa fa-link"></i></a></div>
+                            <div class="overlay-box"><a asp-page="./DetailProject" asp-route-id="@item.Id"><i class="fa fa-link"></i></a></div>
                         </div>
                         
                     </div>
