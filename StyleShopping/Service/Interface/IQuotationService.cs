@@ -18,7 +18,7 @@ namespace Service.Interface
 
         public void AddQuotationDetail(QuotationDetail detail);
 
-        public QuotationDetail GetQuotationDetail(int id);
+        public QuotationDetail GetQuotationDetail(int id, int productID);
 
         public void UpdateQuotationDetail(QuotationDetail detail);
     }

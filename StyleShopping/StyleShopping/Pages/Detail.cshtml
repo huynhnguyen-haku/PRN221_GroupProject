@@ -23,8 +23,12 @@
 
                                     <div class="text">@Model.interior.Detail</div>
                                     <div class="other-options clearfix">
-                                        <div class="item-quantity"><input class="quantity-spinner" type="number" value="2" name="quantity"></div>
-                                        <button type="button" class="theme-btn btn-style-one add-to-cart">Add To Cart</button>
+                                        <form method="post" asp-page-handler="AddCart">
+                                             <div class="item-quantity"><input class="quantity-spinner" type="number" value="2" name="quantity"></div>
+                                            <input class="quantity-spinner" type="hidden" name="productID" value="@Model.interior.Id">
+                                            <button type="button" class="theme-btn btn-style-one add-to-cart">Add To Cart</button>
+                                        </form>
+                                       
                                     </div>
                                 </div>
                             </div>

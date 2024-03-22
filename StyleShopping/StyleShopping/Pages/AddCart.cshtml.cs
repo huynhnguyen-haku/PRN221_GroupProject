@@ -13,7 +13,7 @@ namespace StyleShopping.Pages
         {
             quotationService = new QuotationService();
         }
-        public IActionResult OnGetAsync(int productID,int? quantity)
+        public IActionResult OnGetAsync(int id,int? quantity)
         {
             if (HttpContext.Session.GetInt32("user_id") == null)
             {
@@ -23,10 +23,35 @@ namespace StyleShopping.Pages
             {
                 return RedirectToPage("/AccessDenied");
             }
-            quantity = (quantity == null) ? 1 : quantity;
-            int id = (int)HttpContext.Session.GetInt32("user_id");
+            int a_id = (int)HttpContext.Session.GetInt32("user_id");
+            AddCart(id, 1, a_id);
+            return RedirectToPage("./Index");
+            
+
+
+        }
+        public IActionResult OnPostAsync(int id, int? quantity)
+        {
+            if (HttpContext.Session.GetInt32("user_id") == null)
+            {
+                return RedirectToPage("/Login");
+            }
+            if (HttpContext.Session.GetInt32("role") != 0)
+            {
+                return RedirectToPage("/AccessDenied");
+            }
+            int a_id = (int)HttpContext.Session.GetInt32("user_id");
+            AddCart(id, quantity, a_id);
+            return RedirectToPage("./Detail?id="+ id);
+
+
+
+        }
+
+        public void AddCart(int productID, int? quantity,int id)
+        {
             var quotation = quotationService.GetQuotationUser(id);
-            if(quotation == null)
+            if (quotation == null)
             {
                 Quotation newQuotation = new Quotation();
                 newQuotation.QuotationStatus = "Pending";
@@ -43,9 +68,9 @@ namespace StyleShopping.Pages
             }
             else
             {
-                var detail = quotationService.GetQuotationDetail(quotation.QuotationId);
-                
-                if(detail == null)
+                QuotationDetail detail = quotationService.GetQuotationDetail(quotation.QuotationId, productID);
+
+                if (detail == null)
                 {
                     QuotationDetail newDetail = new QuotationDetail();
                     newDetail.QuotationId = quotation.QuotationId;
@@ -55,12 +80,10 @@ namespace StyleShopping.Pages
                 }
                 else
                 {
-
+                    detail.Quantity = detail.Quantity + quantity;
+                    quotationService.UpdateQuotationDetail(detail);
                 }
             }
-            return Page();
-
-
         }
     }
 }
