@@ -154,7 +154,11 @@ namespace BussinessObject
                     .HasColumnType("ntext")
                     .HasColumnName("phone");
 
+                entity.Property(e => e.Square).HasColumnName("square");
+
                 entity.Property(e => e.Status).HasColumnName("status");
+
+                entity.Property(e => e.StyleId).HasColumnName("style_id");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
             });
