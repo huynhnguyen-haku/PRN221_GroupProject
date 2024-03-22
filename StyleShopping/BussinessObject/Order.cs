@@ -17,6 +17,8 @@ namespace BussinessObject
         public int? UserId { get; set; }
         public string? Note { get; set; }
         public int? Status { get; set; }
+        public int? StyleId { get; set; }
+        public int? Square { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
