@@ -27,7 +27,16 @@
                                 </td>
                                 <td><h4 class="prod-title">@item.Interior.Name</h4></td>
                                 <td class="sub-total">$@item.Interior.Price</td>
-                                <td class="qty"><div class="item-quantity"><input class="quantity-spinner" type="number" value="@item.Quantity" min="1" name="quantity"></div></td>
+                                <td class="qty">
+                                    <div class="item-quantity">
+                                        <form method="post">
+                                            <input class="quantity-spinner quantity-input" type="number" data-product-id="@item.InteriorId" value="@item.Quantity" onchange="this.form.submit()" min="1" name="quantity">
+                                            <input class="quantity-spinner" type="hidden" value="@item.QuotationDetailId" name="id">
+
+                                        </form>
+                                      
+                                    </div>
+                                </td>
                                 <td class="total">$@(item.Quantity*item.Interior.Price)</td>
                                 <td><a asp-page="./RemoveCart" asp-route-id="@item.QuotationDetailId" class="remove-btn"><span class="fa fa-remove"></span></a></td>
                             </tr>
@@ -49,19 +58,29 @@
                         <!-- Shipping Form -->
                         <div class="shipping-form">
                             <!--Shipping Form-->
-                            <form method="post" action="#">
+                            <form method="post" asp-page-handler="Submit">
                                 <div class="row clearfix">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                         <input type="text" name="square" value="" placeholder="Square Of House">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <select name="style">
+                                            @foreach (var item in Model.listS)
+                                            {
+                                                <option value="@item.Id">@item.Name - @item.PricePerSquare/1 m2</option>
+                                            }
+
+                                        </select>
                                     </div>
+                                    <div class="form-input col-md-6 col-sm-12">
+                                         <input type="number" min="1" name="square" required value="" placeholder="Square Of House">
+                                    </div>
+                                    
                                     <div class="form-group col-md-6 col-sm-12">
-                                         <input type="text" name="address" value="" placeholder="Address">
+                                        <input type="text" name="address" value="" required placeholder="Address">
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12">
-                                         <input type="text" name="phone" value="" placeholder="Phone">
+                                        <input type="text" name="phone" value="" required placeholder="Phone">
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12">
-                                        <input type="text" name="note" value="" placeholder="Note">
+                                        <input type="text" name="note" value="" required placeholder="Note">
                                     </div>
                                     <div class="form-group col-md-12 col-sm-12 text-center">
                                         <button class="theme-btn totals-btn" type="submit" name="submit-form">Order</button>
@@ -77,10 +96,10 @@
                 <!--Totals Table-->
                 <ul class="totals-table">
                     <li><h3>Cart Totals</h3></li>
-                    <li class="clearfix total"><span class="col">Sub Total</span><span class="col price">$35.00</span></li>
-                    <li class="clearfix total"><span class="col">Total</span><span class="col price">$35.00</span></li>
+                    <li class="clearfix total"><span class="col">Total</span><span class="col price">$@Model.total</span></li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
+

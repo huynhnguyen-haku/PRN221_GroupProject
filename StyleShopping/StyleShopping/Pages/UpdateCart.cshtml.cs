@@ -5,8 +5,9 @@ namespace StyleShopping.Pages
 {
     public class UpdateCartModel : PageModel
     {
-        public void OnGet()
+        public IActionResult OnPostAsync()
         {
+            return Page();
         }
     }
 }

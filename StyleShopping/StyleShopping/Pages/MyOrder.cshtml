@@ -1,0 +1,51 @@
+﻿@page
+@model StyleShopping.Pages.MyOrderModel
+<section class="cart-section">
+    <div class="auto-container">
+        <!--Cart Outer-->
+        <div class="cart-outer">
+            <div class="table-outer">
+                <table class="cart-table">
+                    <thead class="cart-header">
+                        <tr>
+                            <th>Style</th>
+                            <th class="prod-column">PriceStyle</th>
+                            <th class="price">TotalPriceStyle</th>
+                            <th>TotalCartPrice</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.listO)
+                        {
+                            <tr>
+                                <td>@item.style</td>
+                                <td>$@item.priceStyle</td>
+                                <td>$@item.totalStylePrice</td>
+                                <td>$@item.totalCartPrice</td>
+                                <td>
+                                    @if (item.status == 0)
+                                    {
+                                        <span>
+                                            Pending
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                         <span>
+                                            Done
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+    </div>
+</section>

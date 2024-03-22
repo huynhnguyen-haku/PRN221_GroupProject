@@ -24,5 +24,15 @@ namespace Repository.Implementation
         public List<QuotationDetail> GetCart(int user_id) => QuotationDAO.Instance.GetCart(user_id);
 
         public void RemoveQuotationDetail(int id) => QuotationDAO.Instance.RemoveQuotationDetail(id);
+
+        public QuotationDetail GetQuotationDetail(int id) => QuotationDAO.Instance.GetQuotationDetail(id);
+
+        public void AddOrder(int userID, int square, int style, string phone, string note, string address, List<QuotationDetail> list) => QuotationDAO.Instance.AddOrder(userID, square, style, phone, note, address, list);
+
+        public void RemoveQuotation(int userID) => QuotationDAO.Instance.RemoveQuotation(userID);
+
+        public List<Order> GetAllOrder(int user_id) => QuotationDAO.Instance.GetAllOrder(user_id);
+
+        public List<OrderDetail> GetAllOrderDetail(int id) => QuotationDAO.Instance.GetAllOrderDetail(id);
     }
 }

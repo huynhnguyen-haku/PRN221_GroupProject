@@ -20,6 +20,7 @@ namespace BussinessObject
         public int? StyleId { get; set; }
         public int? Square { get; set; }
 
+        public virtual Style? Style { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }
