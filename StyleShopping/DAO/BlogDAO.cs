@@ -1,4 +1,5 @@
 ﻿using BussinessObject;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace DAO
             {
                 using (var MySale = new styleContext())
                 {
-                    blog = MySale.Blogs.SingleOrDefault(x => x.Id == id);
+                    blog = MySale.Blogs.Include(x => x.Account).SingleOrDefault(x => x.Id == id);
                 }
             }
             catch (Exception e)
