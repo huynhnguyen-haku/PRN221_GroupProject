@@ -22,5 +22,14 @@ namespace Repository.Interface
         public List<QuotationDetail> GetCart(int user_id);
 
         public void RemoveQuotationDetail(int id);
+
+        public QuotationDetail GetQuotationDetail(int id);
+
+        public void AddOrder(int userID, int square, int style, string phone, string note, string address, List<QuotationDetail> list);
+
+        public void RemoveQuotation(int userID);
+        public List<Order> GetAllOrder(int user_id);
+
+        public List<OrderDetail> GetAllOrderDetail(int id);
     }
 }
