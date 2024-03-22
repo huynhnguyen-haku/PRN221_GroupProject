@@ -30,7 +30,7 @@ namespace DAO
         }
 
 
-
+        //Can chinh lai ko can new
         public Quotation GetQuotationUser(int userID)
         {
             Quotation quotation = null;

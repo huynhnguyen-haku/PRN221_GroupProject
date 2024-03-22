@@ -11,6 +11,8 @@ namespace StyleShopping.Pages
     {
         public IEnumerable<Order> list { get; set; } = default!;
         private readonly IQuotationService quotationService;
+
+        //New sai, can phai fix
         public MyOrderModel()
         {
             quotationService = new QuotationService();
