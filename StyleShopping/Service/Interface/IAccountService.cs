@@ -10,5 +10,7 @@ namespace Service.Interface
     public interface IAccountService
     {
         Account getByNameAndPass(string username, string password);
+
+        public void add(string username, string password, string phone, string address);
     }
 }

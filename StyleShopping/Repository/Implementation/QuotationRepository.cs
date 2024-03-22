@@ -34,5 +34,7 @@ namespace Repository.Implementation
         public List<Order> GetAllOrder(int user_id) => QuotationDAO.Instance.GetAllOrder(user_id);
 
         public List<OrderDetail> GetAllOrderDetail(int id) => QuotationDAO.Instance.GetAllOrderDetail(id);
+
+        
     }
 }

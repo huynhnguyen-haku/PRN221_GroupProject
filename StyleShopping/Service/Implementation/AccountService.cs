@@ -17,6 +17,12 @@ namespace Service.Implementation
         {
             _repository = new AccountRepository();
         }
+
+        public void add(string username, string password, string phone, string address)
+        {
+           _repository.add(username, password, phone, address);
+        }
+
         public Account getByNameAndPass(string username, string password)
         {
             return _repository.getByNameAndPass(username, password);   

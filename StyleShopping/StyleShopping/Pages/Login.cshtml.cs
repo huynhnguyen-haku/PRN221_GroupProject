@@ -37,5 +37,20 @@ namespace StyleShopping.Pages
             }
             
         }
+        public IActionResult OnPostRegisAsync()
+        {
+            string username = Request.Form["username"];
+            string password = Request.Form["password"];
+            string phone = Request.Form["phone"];
+            string address = Request.Form["address"];
+            if(accountService.getByNameAndPass(username, password) != null)
+            {
+                error = "Account existed";
+               
+            }
+
+            return Page();
+
+        }
     }
 }

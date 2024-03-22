@@ -1,5 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+    @inject IHttpContextAccessor HttpContextAccessor
+@{
+    var user = HttpContextAccessor.HttpContext.Session.GetInt32("user_id");
+    // Bây giờ bạn có thể sử dụng httpContext để lấy giá trị bạn cần
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -59,9 +64,18 @@
                                     <li class="dropdown">
                                         <a href="./MyOrder">My Order</a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="#">Logout</a>
-                                    </li>
+                                    @if (user != null)
+                                    {
+                                        <li class="dropdown">
+                                            <a href="./Logout">Logout</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="dropdown">
+                                            <a href="./Login">Login</a>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                         </nav><!-- Main Menu End-->

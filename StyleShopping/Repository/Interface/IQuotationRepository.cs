@@ -31,5 +31,7 @@ namespace Repository.Interface
         public List<Order> GetAllOrder(int user_id);
 
         public List<OrderDetail> GetAllOrderDetail(int id);
+
+        
     }
 }
