@@ -13,5 +13,10 @@ namespace Repository.Interface
 
 
         public Project Get(int id);
+
+        void Add(Project project);
+        void Update(Project project);
+
+        public List<Project> ListAdmin();
     }
 }

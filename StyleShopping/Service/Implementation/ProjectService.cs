@@ -26,5 +26,12 @@ namespace Service.Implementation
         {
            return _repository.List();
         }
+
+        public List<Project> ListAdmin() => _repository.ListAdmin();
+
+
+        public void Add(Project project) => _repository.Add(project);
+
+        public void Update(Project project) => _repository.Update(project);
     }
 }
