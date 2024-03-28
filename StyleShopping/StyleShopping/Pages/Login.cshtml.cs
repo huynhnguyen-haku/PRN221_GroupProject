@@ -31,26 +31,24 @@ namespace StyleShopping.Pages
             }
             else
             {
-                HttpContext.Session.SetInt32("user_id",account.Id);
+                HttpContext.Session.SetInt32("user_id", account.Id);
                 HttpContext.Session.SetInt32("role", (int)account.Role);
-                return RedirectToPage("/Index");
-            }
-            
-        }
-        public IActionResult OnPostRegisAsync()
-        {
-            string username = Request.Form["username"];
-            string password = Request.Form["password"];
-            string phone = Request.Form["phone"];
-            string address = Request.Form["address"];
-            if(accountService.getByNameAndPass(username, password) != null)
-            {
-                error = "Account existed";
+                if (account.Role == 0)
+                {
+                    return RedirectToPage("/Index");
+                }
+                else if(account.Role == 1)
+                {
+                    return RedirectToPage("/Admin/ManageInterior");
+                }
+                else
+                {
+                    return RedirectToPage("/Admin/ManageInterior");
+                }
+               
                
             }
-
-            return Page();
-
+            
         }
     }
 }

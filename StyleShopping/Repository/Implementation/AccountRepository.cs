@@ -11,7 +11,6 @@ namespace Repository.Implementation
 {
     public class AccountRepository : IAccountRepository
     {
-        public void add(string username, string password, string phone, string address) => AccountDAO.Instance.add(username, password, phone, address);
         public Account getByNameAndPass(string username, string password) => AccountDAO.Instance.GetByNameAndPassword(username, password);
     }
 }

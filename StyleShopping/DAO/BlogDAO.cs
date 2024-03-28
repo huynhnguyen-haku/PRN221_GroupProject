@@ -36,7 +36,7 @@ namespace DAO
 
                 using (var MySale = new styleContext())
                 {
-                    blogs = MySale.Blogs.ToList();
+                    blogs = MySale.Blogs.Where(x => x.Status == 1).ToList();
                 }
             }
             catch (Exception e)

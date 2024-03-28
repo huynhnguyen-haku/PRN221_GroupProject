@@ -25,5 +25,6 @@ namespace Repository.Implementation
 
         public Interior Get(int id) => InteriorDAO.Instance.Get(id);
 
+        public List<Interior> ListAdmin() => InteriorDAO.Instance.ListAdmin();
     }
 }

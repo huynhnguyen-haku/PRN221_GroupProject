@@ -11,6 +11,7 @@ namespace BussinessObject
         public string? Detail { get; set; }
         public string? Title { get; set; }
         public DateTime? CreateDate { get; set; }
+        public int? Status { get; set; }
 
         public virtual Account? Account { get; set; }
     }

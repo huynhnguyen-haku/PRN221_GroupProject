@@ -15,6 +15,7 @@ namespace BussinessObject
         public string? Image { get; set; }
         public string? Detail { get; set; }
         public int? PricePerSquare { get; set; }
+        public int? Status { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }

@@ -17,7 +17,8 @@ namespace Repository.Interface
 
         List<Interior> ListByCate(int? cate_id);
 
-
         Interior Get(int id);
+
+        List<Interior> ListAdmin();
     }
 }
