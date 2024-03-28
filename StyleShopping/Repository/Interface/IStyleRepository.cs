@@ -13,5 +13,10 @@ namespace Repository.Interface
 
 
         public Style Get(int id);
+
+        void Add(Style style);
+        void Update(Style style);
+
+        public List<Style> ListAdmin();
     }
 }
