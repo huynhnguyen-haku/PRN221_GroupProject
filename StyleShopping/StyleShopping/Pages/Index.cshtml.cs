@@ -18,7 +18,7 @@ namespace StyleShopping.Pages
 
         public int? original_cate { get; set; } = 0;
         public IndexModel()
-        {
+        { 
             interService = new InteriorService();
         }
         public IActionResult OnGetAsync(int? id1,int? id2)

@@ -17,6 +17,7 @@ namespace BussinessObject
         public string? Image { get; set; }
         public string? Detail { get; set; }
         public int? CateId { get; set; }
+        public int? Status { get; set; }
 
         public virtual Category? Cate { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

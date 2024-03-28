@@ -14,5 +14,6 @@ namespace BussinessObject
         public int? Area { get; set; }
         public int? CompleteYear { get; set; }
         public int? Value { get; set; }
+        public int? Status { get; set; }
     }
 }

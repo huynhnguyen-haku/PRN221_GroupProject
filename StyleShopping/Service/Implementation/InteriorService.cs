@@ -26,12 +26,14 @@ namespace Service.Implementation
         {
             List<Interior> list = _repository.List();
             if(cate_id != null)
-            {
+            { 
                 list = _repository.ListByCate(cate_id);
             }
             return list;
 
         }
+
+        public List<Interior> ListAdmin() => _repository.ListAdmin();
 
         public IEnumerable<Category> ListCategory() => _repository.ListCategory();
 

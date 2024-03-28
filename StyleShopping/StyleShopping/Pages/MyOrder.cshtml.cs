@@ -9,7 +9,7 @@ namespace StyleShopping.Pages
 {
     public class MyOrderModel : PageModel
     {
-        public IEnumerable<Order> list { get; set; } = default!;
+        public List<Order> list { get; set; } = default!;
         private readonly IQuotationService quotationService;
         public MyOrderModel()
         {
@@ -18,35 +18,46 @@ namespace StyleShopping.Pages
         public List<OrderDTO> listO { get; set; } = default!;
         public IActionResult OnGetAsync()
         {
-            if (HttpContext.Session.GetInt32("user_id") == null)
+            try
             {
-                return RedirectToPage("/Login");
-            }
-            if (HttpContext.Session.GetInt32("role") != 0)
-            {
-                return RedirectToPage("/AccessDenied");
-            }
-            int a_id = (int)HttpContext.Session.GetInt32("user_id");
-            list = quotationService.GetAllOrder(a_id);
-            listO = new List<OrderDTO>();
-            foreach (var item in list)
-            {
-                int totalCart = 0;
-                OrderDTO o = new OrderDTO();
-                o.style = item.Style.Name;
-                o.priceStyle = (int)item.Style.PricePerSquare;
-                o.square = (int)item.Square;
-                o.totalStylePrice = (int)item.Square * (int)item.Style.PricePerSquare;
-                o.status = (int)item.Status;
-                var details = quotationService.GetAllOrderDetail(item.OrderId);
-                foreach(var i in details)
+                if (HttpContext.Session.GetInt32("user_id") == null)
                 {
-                    totalCart += (int)i.Quantity * (int)i.Interior.Price;
+                    return RedirectToPage("/Login");
                 }
-                o.totalCartPrice = totalCart;
-                listO.Add(o);
+                if (HttpContext.Session.GetInt32("role") != 0)
+                {
+                    return RedirectToPage("/AccessDenied");
+                }
+                int a_id = (int)HttpContext.Session.GetInt32("user_id");
+                list = quotationService.GetAllOrder(a_id);
+                if (!list.Contains(null))
+                {
+                    listO = new List<OrderDTO>();
+                    foreach (var item in list)
+                    {
+                        int totalCart = 0;
+                        OrderDTO o = new OrderDTO();
+                        o.style = item.Style.Name;
+                        o.priceStyle = (int)item.Style.PricePerSquare;
+                        o.square = (int)item.Square;
+                        o.totalStylePrice = (int)item.Square * (int)item.Style.PricePerSquare;
+                        o.status = (int)item.Status;
+                        var details = quotationService.GetAllOrderDetail(item.OrderId);
+                        foreach (var i in details)
+                        {
+                            totalCart += (int)i.Quantity * (int)i.Interior.Price;
+                        }
+                        o.totalCartPrice = totalCart;
+                        listO.Add(o);
+                    }
+                }
+
+                return Page();
             }
-            return Page();
+            catch(Exception ex) {
+                return Page();
+            }
+           
         }
     }
 }

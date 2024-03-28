@@ -31,9 +31,22 @@ namespace StyleShopping.Pages
             }
             else
             {
-                HttpContext.Session.SetInt32("user_id",account.Id);
+                HttpContext.Session.SetInt32("user_id", account.Id);
                 HttpContext.Session.SetInt32("role", (int)account.Role);
-                return RedirectToPage("/Index");
+                if (account.Role == 0)
+                {
+                    return RedirectToPage("/Index");
+                }
+                else if(account.Role == 1)
+                {
+                    return RedirectToPage("/Admin/ManageInterior");
+                }
+                else
+                {
+                    return RedirectToPage("/Admin/ManageInterior");
+                }
+               
+               
             }
             
         }

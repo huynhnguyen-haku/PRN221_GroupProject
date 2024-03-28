@@ -33,7 +33,7 @@ namespace StyleShopping.DAO
 
                 using (var MySale = new styleContext())
                 {
-                    interiors = MySale.Interiors.Where(x => x.CateId == id).ToList();
+                    interiors = MySale.Interiors.Where(x => x.CateId == id && x.Status == 1).ToList();
                 }
             }
             catch (Exception e)
@@ -51,7 +51,25 @@ namespace StyleShopping.DAO
 
                 using (var MySale = new styleContext())
                 {
-                    interiors = MySale.Interiors.ToList();
+                    interiors = MySale.Interiors.Where(x => x.Status == 1).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return interiors;
+
+        }
+        public List<Interior> ListAdmin()
+        {
+            List<Interior> interiors;
+            try
+            {
+
+                using (var MySale = new styleContext())
+                {
+                    interiors = MySale.Interiors.Include(x => x.Cate).ToList();
                 }
             }
             catch (Exception e)
@@ -105,7 +123,7 @@ namespace StyleShopping.DAO
                 {
                     using (var MySale = new styleContext())
                     {
-                        MySale.Interiors.Add(c);
+                        MySale.Interiors.Add(interior);
                         MySale.SaveChanges();
                     }
 

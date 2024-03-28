@@ -37,7 +37,7 @@ namespace DAO
             {
                 using (var MySale = new styleContext())
                 {
-                    account = MySale.Accounts.SingleOrDefault(x => x.Username.Equals(username) && x.Password.Equals(password));
+                    account = MySale.Accounts.SingleOrDefault(x => x.Username.Equals(username) && x.Password.Equals(password) && x.Status == 1);
                 }
             }
             catch (Exception e)

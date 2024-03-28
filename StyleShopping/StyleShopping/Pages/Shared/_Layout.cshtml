@@ -1,5 +1,11 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var user = HttpContextAccessor.HttpContext.Session.GetInt32("user_id");
+    var role = HttpContextAccessor.HttpContext.Session.GetInt32("role");
+    // Bây giờ bạn có thể sử dụng httpContext để lấy giá trị bạn cần
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +34,7 @@
                     <div class="logo-box">
                         <div class="logo"><a href="index-2.html"><img src="~/images/logo-2.png" alt="" title=""></a></div>
                     </div>
-
+                   
                     <div class="nav-outer">
                         <!-- Main Menu -->
                         <nav class="main-menu navbar-expand-md ">
@@ -41,27 +47,60 @@
 
                             <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
+                                    @if(role != 1 && role != 2){
+                                        <li class="dropdown">
+                                            <a href="./Index">Interior</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="./Style">Style</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="./Project">Projects</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="./Blog">Blog</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="./ShowCart">Quotation</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="./MyOrder">My Order</a>
+                                        </li>
+                                    }else if(role == 1)
+                                    {
+                                        <li class="dropdown">
+                                            <a href="/Admin/Interior">Interior</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="/Admin/Style">Style</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="/Admin/Project">Project</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="/Admin/Blog">Blog</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="/Admin/Order">Order</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="/Admin/Account">Account</a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="/Admin/Dashboard">Dashboard</a>
+                                        </li>
+                                    }
+
+                                    @if(user != null){
+                                        <li class="dropdown">
+                                            <a href="Logout">Logout</a>
+                                        </li>
+                                    }else {
                                     <li class="dropdown">
-                                        <a href="./Index">Interior</a>
+                                            <a href="Login">Login</a>
                                     </li>
-                                    <li class="dropdown">
-                                        <a href="./Style">Style</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="./Project">Projects</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="./Blog">Blog</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="./ShowCart">Quotation</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="./MyOrder">My Order</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#">Logout</a>
-                                    </li>
+                                    }
+
                                 </ul>
                             </div>
                         </nav><!-- Main Menu End-->
@@ -72,16 +111,19 @@
             </div>
         </div>
     </header>
-    <section class="page-title" style="background-image:url(images/background/10.jpg);">
-        <div class="auto-container">
-            <div class="inner-container clearfix">
-                <div class="title-box">
-                    <h1>House Design</h1>
-                    <span class="title">The Interior speak for themselves</span>
+
+        <section class="page-title" style="background-image:url(images/background/10.jpg);">
+            <div class="auto-container">
+                <div class="inner-container clearfix">
+                    <div class="title-box">
+                        <h1>House Design</h1>
+                        <span class="title">The Interior speak for themselves</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+    
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

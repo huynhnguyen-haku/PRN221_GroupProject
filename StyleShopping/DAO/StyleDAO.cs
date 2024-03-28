@@ -33,7 +33,7 @@ namespace StyleShopping.DAO
 
                 using (var MySale = new styleContext())
                 {
-                    styles = MySale.Styles.ToList();
+                    styles = MySale.Styles.Where(x => x.Status == 1).ToList();
                 }
             }
             catch (Exception e)
