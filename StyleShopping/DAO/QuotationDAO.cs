@@ -158,6 +158,22 @@ namespace DAO
             }
             return list;
         }
+        public List<Order> GetAllOrderAdmin()
+        {
+            List<Order> list = new();
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    list = MySale.Orders.Include(x => x.User).Include(x => x.Style).Include(x => x.Ceil).Include(x => x.Background).Include(x => x.Wall).Include(x => x.TypeHouse).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return list;
+        }
         public List<TypeHouse> GetAllTypeHouse()
         {
             List<TypeHouse> list = new();
@@ -314,6 +330,23 @@ namespace DAO
                 {
                     var order = MySale.Orders.FirstOrDefault(x => x.OrderId == id);
                     order.Status = 0;
+                    MySale.Orders.Update(order);
+                    MySale.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void ApproveOrder(int id)
+        {
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    var order = MySale.Orders.FirstOrDefault(x => x.OrderId == id);
+                    order.Status = 2;
                     MySale.Orders.Update(order);
                     MySale.SaveChanges();
                 }

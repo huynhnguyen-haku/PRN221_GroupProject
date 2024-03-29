@@ -1,17 +1,23 @@
 using BussinessObject;
 using Microsoft.EntityFrameworkCore;
+using Service.Implementation;
+using Service.Interface;
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddDbContext<styleContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection")));
-builder.Services.AddScoped<styleContext>();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(5);
-});
+builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<IInteriorService, InteriorService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IQuotationService, QuotationService>();
+builder.Services.AddScoped<IStyleService, StyleService>();
+
+
+builder.Services.AddSession();
+
 
 var app = builder.Build();
 

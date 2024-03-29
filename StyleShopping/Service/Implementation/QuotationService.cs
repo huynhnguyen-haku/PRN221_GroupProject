@@ -103,9 +103,19 @@ namespace Service.Implementation
             return _repository.GetOrder(id);
         }
 
+        public List<Order> GetAllOrderAdmin()
+        {
+            return _repository.GetAllOrderAdmin();
+        }
+
         public void CancelOrder(int id)
         {
            _repository.CancelOrder(id);
+        }
+
+        public void ApproveOrder(int id)
+        {
+            _repository.ApproveOrder(id);
         }
     }
 }

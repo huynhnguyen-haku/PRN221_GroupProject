@@ -1,0 +1,279 @@
+﻿@page
+@model StyleShopping.Pages.Admin.OrderDetailModel
+<link href="~/css/bootstrap.css" rel="stylesheet">
+<link href="~/css/style.css" rel="stylesheet">
+<link href="~/css/responsive.css" rel="stylesheet">
+<!--Color Switcher Mockup-->
+<link href="~/css/color-switcher-design.css" rel="stylesheet">
+<!--Color Themes-->
+<link id="theme-color-file" href="~/css/color-themes/default-theme.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="~/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="~/images/favicon.png" type="image/x-icon">
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<div class="product-info-tabs">
+    <!--Product Tabs-->
+    <div class="prod-tabs tabs-box">
+
+        <!--Tab Btns-->
+        <div class="tab-btns tab-buttons clearfix mt-2">
+            <button data-tab="#prod-details" class="tab-btn btn btn-dark  active-btn">Cart</button>
+            <button data-tab="#prod-reviews" class="tab-btn btn btn-dark">Design</button>
+        </div>
+
+        <!--Tabs Container-->
+        <div class="tabs-content">
+
+            <!--Tab-->
+            <div class="tab" id="prod-details">
+                <div class="auto-container">
+                    <!--Cart Outer-->
+                    <div class="cart-outer">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th>Preview</th>
+                                        <th class="prod-column">Product</th>
+                                        <th class="price">Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.list != null)
+                                    {
+                                        @foreach (var item in Model.list)
+                                        {
+                                            <tr>
+                                                <td class="prod-column">
+                                                    <div class="column-box">
+                                                        <figure class="prod-thumb"><a asp-page="./Detail" asp-route-id="@item.Interior.Id"><img src="@item.Interior.Image" alt=""></a></figure>
+                                                    </div>
+                                                </td>
+                                                <td><h4 class="prod-title">@item.Interior.Name</h4></td>
+                                                <td class="sub-total">$@item.Interior.Price</td>
+                                                <td>@item.Quantity</td>
+                                                <td class="total">$@(item.Quantity * item.Interior.Price)</td>
+                                            </tr>
+                                        }
+                                    }
+
+
+                                </tbody>
+                            </table>
+                            <div class="column pull-right col-lg-12 col-md-12 col-sm-12">
+                                <!--Totals Table-->
+                                <ul class="totals-table">
+                                    <li><h3>Cart Totals</h3></li>
+                                    <li class="clearfix total"><span class="col">Total</span><span class="col price">$@Model.totalCart</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <!--Tab-->
+            <div class="tab active-tab" id="prod-reviews">
+                <div class="auto-container">
+                    <!--Cart Outer-->
+                    <div class="cart-outer">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th style="width:300px">Width</th>
+                                        <th style="width:300px" class="prod-column">Height</th>
+                                        <th style="width:300px" class="price">Long</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.order.Width</td>
+                                        <td>@Model.order.Height</td>
+                                        <td>@Model.order.Long</td>
+                                    </tr>
+
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="cart-outer mt-4">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th style="width:200px">Style</th>
+                                        <th style="width:200px" class="prod-column">Price Per m2</th>
+                                        <th style="width:300px" class="price">Calculate</th>
+                                        <th style="width:200px" class="price">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.order.Style != null)
+                                    {
+                                        <tr>
+                                            <td>@Model.order.Style.Name</td>
+                                            <td>$@Model.order.Style.PricePerSquare</td>
+                                            <td>Width * Height * Price/m2</td>
+                                            <td>$ @(Model.order.Style.PricePerSquare * Model.order.Width * Model.order.Height)</td>
+                                        </tr>
+
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="cart-outer mt-2">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th style="width:200px">Type House</th>
+                                        <th style="width:200px" class="prod-column">Price Per m2</th>
+                                        <th style="width:300px" class="price">Calculate</th>
+                                        <th style="width:200px" class="price">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.order.TypeHouse != null)
+                                    {
+                                        <tr>
+                                            <td>@Model.order.TypeHouse.Name</td>
+                                            <td>$@Model.order.TypeHouse.PricePerSquare</td>
+                                            <td>Width * Height * Price/m2</td>
+                                            <td>$ @(Model.order.TypeHouse.PricePerSquare * Model.order.Width * Model.order.Height)</td>
+                                        </tr>
+
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="cart-outer mt-2">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th style="width:200px">Background</th>
+                                        <th style="width:200px" class="prod-column">Price Per m2</th>
+                                        <th style="width:300px" class="price">Calculate</th>
+                                        <th style="width:200px" class="price">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.order.Background != null)
+                                    {
+                                        <tr>
+                                            <td>@Model.order.Background.Name</td>
+                                            <td>$@Model.order.Background.PricePerSquare</td>
+                                            <td>Width * Height * Price/m2</td>
+                                            <td>$ @(Model.order.Background.PricePerSquare * Model.order.Width * Model.order.Height)</td>
+                                        </tr>
+
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="cart-outer mt-2">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th style="width:200px">Wall</th>
+                                        <th style="width:200px" class="prod-column">Price Per m2</th>
+                                        <th style="width:300px" class="price">Calculate</th>
+                                        <th style="width:200px" class="price">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.order.Wall != null)
+                                    {
+                                        <tr>
+                                            <td>@Model.order.Wall.Name</td>
+                                            <td>$@Model.order.Wall.PricePerSquare</td>
+                                            <td>(Width + Long) * 2 * Height * Price/m2</td>
+                                            <td>$ @(Model.order.Wall.PricePerSquare * (Model.order.Width + Model.order.Long) * Model.order.Height * 2)</td>
+                                        </tr>
+
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="cart-outer mt-2">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th style="width:200px">Ceil House</th>
+                                        <th style="width:200px" class="prod-column">Price Per m2</th>
+                                        <th style="width:300px" class="price">Calculate</th>
+                                        <th style="width:200px" class="price">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.order.Ceil != null)
+                                    {
+                                        <tr>
+                                            <td>@Model.order.Ceil.Name</td>
+                                            <td>$@Model.order.Ceil.PricePerSquare</td>
+                                            <td>Width * Height * Price/m2</td>
+                                            <td>$ @(Model.order.Ceil.PricePerSquare * Model.order.Width * Model.order.Height)</td>
+                                        </tr>
+
+                                    }
+
+
+                                </tbody>
+                            </table>
+                            <div class="column pull-right col-lg-12 col-md-12 col-sm-12">
+                                <!--Totals Table-->
+                                <ul class="totals-table">
+                                    <li><h3>Design Totals</h3></li>
+                                    <li class="clearfix total"><span class="col">Total</span><span class="col price">$@Model.totalDesign</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-arrow-circle-o-up"></span></div>
+<script src="~/js/jquery.js"></script>
+<script src="~/js/popper.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/jquery.fancybox.js"></script>
+<script src="~/js/jquery-ui.js"></script>
+<script src="~/js/owl.js"></script>
+<script src="~/js/wow.js"></script>
+<script src="~/js/appear.js"></script>
+<script src="~/js/jquery.bootstrap-touchspin.js"></script>
+<script src="~/js/script.js"></script>
+<!-- Color Setting -->
+<script src="~/js/color-settings.js"></script>

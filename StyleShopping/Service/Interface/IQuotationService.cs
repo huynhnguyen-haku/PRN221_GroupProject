@@ -31,6 +31,8 @@ namespace Service.Interface
 
         public void AddOrder(Order o, List<QuotationDetail> list);
         public void CancelOrder(int id);
+
+        public void ApproveOrder(int id);
         public Order GetOrder(int id);
 
         public void RemoveQuotation(int userID);
@@ -47,5 +49,7 @@ namespace Service.Interface
         public List<Background> GetAllBackground();
 
         public List<Wall> GetAllWall();
+
+        public List<Order> GetAllOrderAdmin();
     }
 }

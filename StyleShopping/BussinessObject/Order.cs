@@ -30,6 +30,7 @@ namespace BussinessObject
         public virtual CeilingHouse? Ceil { get; set; }
         public virtual Style? Style { get; set; }
         public virtual TypeHouse? TypeHouse { get; set; }
+        public virtual Account? User { get; set; }
         public virtual Wall? Wall { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }

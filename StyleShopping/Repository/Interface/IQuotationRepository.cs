@@ -27,12 +27,16 @@ namespace Repository.Interface
 
         public void CancelOrder(int id);
 
+        public void ApproveOrder(int id);
+
         public QuotationDetail GetQuotationDetail(int id);
 
         public void AddOrder(Order o, List<QuotationDetail> list);
 
         public void RemoveQuotation(int userID);
         public List<Order> GetAllOrder(int user_id);
+
+        public List<Order> GetAllOrderAdmin();
 
         public List<OrderDetail> GetAllOrderDetail(int id);
 

@@ -5,13 +5,13 @@ using Service.Implementation;
 using Service.Interface;
 using StyleShopping.DTO;
 
-namespace StyleShopping.Pages
+namespace StyleShopping.Pages.Admin
 {
-    public class MyOrderModel : PageModel
+    public class ManageOrderModel : PageModel
     {
         public List<Order> list { get; set; } = default!;
         private readonly IQuotationService quotationService;
-        public MyOrderModel()
+        public ManageOrderModel()
         {
             quotationService = new QuotationService();
         }
@@ -24,12 +24,11 @@ namespace StyleShopping.Pages
                 {
                     return RedirectToPage("/Login");
                 }
-                if (HttpContext.Session.GetInt32("role") != 0)
+                if (HttpContext.Session.GetInt32("role") != 1)
                 {
                     return RedirectToPage("/AccessDenied");
                 }
-                int a_id = (int)HttpContext.Session.GetInt32("user_id");
-                list = quotationService.GetAllOrder(a_id);
+                list = quotationService.GetAllOrderAdmin();
                 if (!list.Contains(null))
                 {
                     listO = new List<OrderDTO>();
@@ -42,8 +41,9 @@ namespace StyleShopping.Pages
                         o.address = item.Address;
                         o.phone = item.Phone;
                         o.note = item.Note;
-                        o.totalStylePrice = ((int)item.Height * (int)item.Width) * ((int)item.Style.PricePerSquare + (int)item.Ceil.PricePerSquare + (int)item.TypeHouse.PricePerSquare+(int)item.Background.PricePerSquare ) + 
-                            ((int)item.Long + (int)item.Width)*(int)item.Height*2*(int)item.Wall.PricePerSquare;
+                        o.username = item.User.Username;
+                        o.totalStylePrice = ((int)item.Height * (int)item.Width) * ((int)item.Style.PricePerSquare + (int)item.Ceil.PricePerSquare + (int)item.TypeHouse.PricePerSquare + (int)item.Background.PricePerSquare) +
+                            ((int)item.Long + (int)item.Width) * (int)item.Height * 2 * (int)item.Wall.PricePerSquare;
                         o.status = (int)item.Status;
                         var details = quotationService.GetAllOrderDetail(item.OrderId);
                         foreach (var i in details)
@@ -57,10 +57,11 @@ namespace StyleShopping.Pages
 
                 return Page();
             }
-            catch(Exception ex) {
+            catch (Exception ex)
+            {
                 return Page();
             }
-           
+
         }
     }
 }

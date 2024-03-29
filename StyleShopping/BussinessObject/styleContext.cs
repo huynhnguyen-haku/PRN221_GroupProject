@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace BussinessObject
 {
@@ -35,9 +36,18 @@ namespace BussinessObject
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=style;Trusted_Connection=True;uid=sa;pwd=123456;Trust Server Certificate=True");
+                optionsBuilder.UseSqlServer(getString());
             }
+        }
+        private string getString()
+        {
+            IConfiguration config = new ConfigurationBuilder()
+                 .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("appsettings.json", true, true)
+                        .Build();
+            var strConn = config.GetConnectionString("DBDefault");
+
+            return strConn;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -227,6 +237,11 @@ namespace BussinessObject
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.TypeHouseId)
                     .HasConstraintName("fk_order_id");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("con_order");
 
                 entity.HasOne(d => d.Wall)
                     .WithMany(p => p.Orders)

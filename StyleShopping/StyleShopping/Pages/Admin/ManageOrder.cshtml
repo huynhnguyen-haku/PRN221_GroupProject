@@ -1,5 +1,5 @@
 ﻿@page
-@model StyleShopping.Pages.MyOrderModel
+@model StyleShopping.Pages.Admin.ManageOrderModel
 <section class="cart-section">
     <div class="auto-container">
         <!--Cart Outer-->
@@ -10,26 +10,27 @@
                         <tr>
                             <th>Total Design Price</th>
                             <th>Total Cart Price</th>
-                             <th>Order Date</th>
+                            <th>Order Date</th>
+                            <th>Username</th>
                             <th>Address</th>
                             <th>Phone</th>
-                            <th>Note</th>
                             <th class="price">Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if(Model.listO != null){
+                        @if (Model.listO != null)
+                        {
                             @foreach (var item in Model.listO)
                             {
                                 <tr>
-                                   
+
                                     <td>@item.totalStylePrice $</td>
                                     <td>@item.totalCartPrice $</td>
                                     <td>@item.orderDate?.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.username</td>
                                     <td>@item.address</td>
                                     <td>@item.phone</td>
-                                    <td>@item.note</td>
                                     <td>
                                         @if (item.status == 1)
                                         {
@@ -37,7 +38,7 @@
                                                 Pending
                                             </span>
                                         }
-                                        else if(item.status == 0)
+                                        else if (item.status == 0)
                                         {
                                             <span>
                                                 Cancel
@@ -45,23 +46,23 @@
                                         }
                                         else
                                         {
-                                             <span>
+                                            <span>
                                                 Approve
                                             </span>
                                         }
                                     </td>
                                     <td>
-                                        @if(item.status == 1)
+                                        @if (item.status == 1)
                                         {
-                                            <a asp-page="./CancelOrder" asp-route-id="@item.id" class="remove-btn"><span class="fa fa-remove"></span></a>
+                                            <a asp-page="./ApproveOrder" asp-route-id="@item.id" class="remove-btn"><span class="fa fa-bookmark">Approve</span> | </a>
                                         }
-                                        <a asp-page="./MyOrderDetail" asp-route-id="@item.id"><span class="fa fa-eye"></span></a>
-                                        
+                                        <a asp-page="./OrderDetail" asp-route-id="@item.id"><span class="fa fa-eye"></span></a>
+
                                     </td>
                                 </tr>
                             }
                         }
-                        
+
 
                     </tbody>
                 </table>

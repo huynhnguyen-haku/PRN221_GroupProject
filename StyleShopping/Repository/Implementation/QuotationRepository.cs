@@ -46,5 +46,9 @@ namespace Repository.Implementation
         public List<Wall> GetAllWall() => QuotationDAO.Instance.GetAllWall();
 
         public void CancelOrder(int id) => QuotationDAO.Instance.CancelOrder(id);
+
+        public void ApproveOrder(int id) => QuotationDAO.Instance.ApproveOrder(id);
+
+        public List<Order> GetAllOrderAdmin() => QuotationDAO.Instance.GetAllOrderAdmin();
     }
 }
