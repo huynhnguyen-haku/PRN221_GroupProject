@@ -149,8 +149,7 @@ namespace DAO
             {
                 using (var MySale = new styleContext())
                 {
-                    Order q = MySale.Orders.Include(x => x.Style).Include(x => x.Ceil).Include(x => x.Background).Include(x => x.Wall).Include(x => x.TypeHouse).FirstOrDefault(x => x.UserId == user_id);
-                    list.Add(q);
+                    list = MySale.Orders.Include(x => x.Style).Include(x => x.Ceil).Include(x => x.Background).Include(x => x.Wall).Include(x => x.TypeHouse).Where(x => x.UserId == user_id).ToList();
                 }
             }
             catch (Exception e)
