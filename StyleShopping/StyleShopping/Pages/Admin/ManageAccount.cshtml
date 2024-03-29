@@ -1,0 +1,97 @@
+﻿@page
+@model StyleShopping.Pages.Admin.ManageAccountModel
+<section class="cart-section">
+    <div class="auto-container">
+        <!--Cart Outer-->
+        <div class="cart-outer">
+            <div class="table-outer">
+
+
+                <a class="theme-btn btn-style-one" asp-page="./AddAccount">Create</a>
+
+
+
+                <table class="cart-table">
+                    <thead class="cart-header">
+                        <tr>
+                            <th>Username</th>
+                            <th class="prod-column">Address</th>
+                            <th class="price">Phone</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.list)
+                        {
+                            <tr>
+                                <td><h4 class="prod-title"></h4>@item.Username</td>
+                                <td class="sub-total">@item.Address</td>
+                                <td class="sub-total">@item.Phone</td>
+                                <td class="total">
+                                    @if (item.Role == 0)
+                                    {
+                                        <span>User</span>
+                                    }
+                                    else if(item.Role == 1)
+                                    {
+                                        <span>Admin</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Staff</span>
+                                    }
+                                </td>
+                                <td class="total">
+                                    @if (item.Status == 0)
+                                    {
+                                        <span style="color:red">Block</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:green">Active</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.Status == 0)
+                                    {
+                                        <a asp-page="./ActiveAccount" asp-route-id="@item.Id" class="remove-btn"><span class="fa fa-unlock"></span></a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-page="./BlockAccount" asp-route-id="@item.Id" class="remove-btn"><span class="fa fa-lock"></span></a>
+                                    } 
+                                    @if (item.Role == 0)
+                                    {
+                                       <a asp-page="./BeStaff" asp-route-id="@item.Id" class="remove-btn"> |<span class="fa fa-pencil">Change To Staff</span></a>
+                                    }
+                                    else if(item.Role == 2)
+                                    {
+                                        <a asp-page="./BeUser" asp-route-id="@item.Id" class="remove-btn"> |<span class="fa fa-pencil">Change To User</span></a>
+                                    }
+                                    
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+                <div class="styled-pagination mt-2">
+                    <ul class="clearfix">
+                        @for (int i = 1; i <= Model.totalPage; i++)
+                        {
+                            <li class="@(Model.indexPage == i ? "active":"")"><a asp-page="./ManageAccount" asp-route-id="@i">@i</a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</section>

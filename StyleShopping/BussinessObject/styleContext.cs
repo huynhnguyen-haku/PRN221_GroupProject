@@ -17,8 +17,10 @@ namespace BussinessObject
         }
 
         public virtual DbSet<Account> Accounts { get; set; } = null!;
+        public virtual DbSet<Background> Backgrounds { get; set; } = null!;
         public virtual DbSet<Blog> Blogs { get; set; } = null!;
         public virtual DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<CeilingHouse> CeilingHouses { get; set; } = null!;
         public virtual DbSet<Interior> Interiors { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
@@ -26,6 +28,8 @@ namespace BussinessObject
         public virtual DbSet<Quotation> Quotations { get; set; } = null!;
         public virtual DbSet<QuotationDetail> QuotationDetails { get; set; } = null!;
         public virtual DbSet<Style> Styles { get; set; } = null!;
+        public virtual DbSet<TypeHouse> TypeHouses { get; set; } = null!;
+        public virtual DbSet<Wall> Walls { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -65,6 +69,19 @@ namespace BussinessObject
                     .HasColumnName("username");
             });
 
+            modelBuilder.Entity<Background>(entity =>
+            {
+                entity.ToTable("Background");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.PricePerSquare).HasColumnName("pricePerSquare");
+            });
+
             modelBuilder.Entity<Blog>(entity =>
             {
                 entity.ToTable("Blog");
@@ -85,6 +102,8 @@ namespace BussinessObject
                     .HasColumnType("ntext")
                     .HasColumnName("image");
 
+                entity.Property(e => e.Status).HasColumnName("status");
+
                 entity.Property(e => e.Title)
                     .HasMaxLength(100)
                     .HasColumnName("title");
@@ -104,6 +123,19 @@ namespace BussinessObject
                 entity.Property(e => e.Name)
                     .HasMaxLength(100)
                     .HasColumnName("name");
+            });
+
+            modelBuilder.Entity<CeilingHouse>(entity =>
+            {
+                entity.ToTable("CeilingHouse");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.PricePerSquare).HasColumnName("pricePerSquare");
             });
 
             modelBuilder.Entity<Interior>(entity =>
@@ -128,6 +160,8 @@ namespace BussinessObject
 
                 entity.Property(e => e.Price).HasColumnName("price");
 
+                entity.Property(e => e.Status).HasColumnName("status");
+
                 entity.HasOne(d => d.Cate)
                     .WithMany(p => p.Interiors)
                     .HasForeignKey(d => d.CateId)
@@ -141,6 +175,14 @@ namespace BussinessObject
                 entity.Property(e => e.Address)
                     .HasColumnType("ntext")
                     .HasColumnName("address");
+
+                entity.Property(e => e.BackgroundId).HasColumnName("backgroundID");
+
+                entity.Property(e => e.CeilId).HasColumnName("ceilID");
+
+                entity.Property(e => e.Height).HasColumnName("height");
+
+                entity.Property(e => e.Long).HasColumnName("long");
 
                 entity.Property(e => e.Note)
                     .HasColumnType("ntext")
@@ -156,7 +198,40 @@ namespace BussinessObject
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
+                entity.Property(e => e.StyleId).HasColumnName("style_id");
+
+                entity.Property(e => e.TypeHouseId).HasColumnName("typeHouseID");
+
                 entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.WallId).HasColumnName("wallID");
+
+                entity.Property(e => e.Width).HasColumnName("width");
+
+                entity.HasOne(d => d.Background)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.BackgroundId)
+                    .HasConstraintName("fk_order_id2");
+
+                entity.HasOne(d => d.Ceil)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.CeilId)
+                    .HasConstraintName("fk_order_id4");
+
+                entity.HasOne(d => d.Style)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.StyleId)
+                    .HasConstraintName("FK_Orders_Style");
+
+                entity.HasOne(d => d.TypeHouse)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.TypeHouseId)
+                    .HasConstraintName("fk_order_id");
+
+                entity.HasOne(d => d.Wall)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.WallId)
+                    .HasConstraintName("fk_order_id3");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
@@ -211,6 +286,8 @@ namespace BussinessObject
                 entity.Property(e => e.Result)
                     .HasColumnType("ntext")
                     .HasColumnName("result");
+
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Value).HasColumnName("value");
             });
@@ -278,6 +355,34 @@ namespace BussinessObject
                 entity.Property(e => e.Image)
                     .HasColumnType("ntext")
                     .HasColumnName("image");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.PricePerSquare).HasColumnName("pricePerSquare");
+
+                entity.Property(e => e.Status).HasColumnName("status");
+            });
+
+            modelBuilder.Entity<TypeHouse>(entity =>
+            {
+                entity.ToTable("TypeHouse");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.PricePerSquare).HasColumnName("pricePerSquare");
+            });
+
+            modelBuilder.Entity<Wall>(entity =>
+            {
+                entity.ToTable("Wall");
+
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(100)

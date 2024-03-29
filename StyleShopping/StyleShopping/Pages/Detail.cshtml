@@ -1,7 +1,7 @@
 ﻿@page
 @model StyleShopping.Pages.DetailModel
 <div class="sidebar-page-container">
-    <div class="auto-container">
+    <div class="container">
         <div class="row clearfix">
 
             <!--Content Side-->
@@ -12,6 +12,7 @@
                         <!--Basic Details-->
                         <div class="basic-details">
                             <div class="row clearfix">
+                                
                                 <div class="image-column col-md-6 col-sm-12">
                                     <figure class="image-box"><a href="" class="lightbox-image" title="Image Caption Here"><img style="width:360px;height:360px;" src="@Model.interior.Image" alt=""></a></figure>
                                 </div>
@@ -23,10 +24,15 @@
 
                                     <div class="text">@Model.interior.Detail</div>
                                     <div class="other-options clearfix">
-                                        <div class="item-quantity"><input class="quantity-spinner" type="number" value="2" name="quantity"></div>
-                                        <button type="button" class="theme-btn btn-style-one add-to-cart">Add To Cart</button>
+                                        <form method="post" asp-page-handler="Detail">
+                                             <div class="item-quantity"><input class="quantity-spinner" required type="number" min="1" name="quantity"></div>
+                                            <input class="quantity-spinner" type="hidden" name="productID" value="@Model.interior.Id">
+                                            <button type="submit" class="theme-btn btn-style-one add-to-cart">Add To Cart</button>
+                                        </form>
+                                       
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                         

@@ -1,0 +1,68 @@
+﻿@page
+@model StyleShopping.Pages.MyOrderModel
+<section class="cart-section">
+    <div class="auto-container">
+        <!--Cart Outer-->
+        <div class="cart-outer">
+            <div class="table-outer">
+                <table class="cart-table">
+                    <thead class="cart-header">
+                        <tr>
+                            <th>Total Design Price</th>
+                            <th>Total Cart Price</th>
+                             <th>Order Date</th>
+                            <th class="price">Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(Model.listO != null){
+                            @foreach (var item in Model.listO)
+                            {
+                                <tr>
+                                   
+                                    <td>@item.totalStylePrice $</td>
+                                    <td>@item.totalCartPrice $</td>
+                                    <td>@item.orderDate?.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        @if (item.status == 1)
+                                        {
+                                            <span>
+                                                Pending
+                                            </span>
+                                        }
+                                        else if(item.status == 0)
+                                        {
+                                            <span>
+                                                Cancel
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                             <span>
+                                                Approve
+                                            </span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if(item.status == 1)
+                                        {
+                                            <a asp-page="./CancelOrder" asp-route-id="@item.id" class="remove-btn"><span class="fa fa-remove"></span></a>
+                                        }
+                                        <a asp-page="./MyOrderDetail" asp-route-id="@item.id"><span class="fa fa-eye"></span></a>
+                                        
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        
+
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+    </div>
+</section>

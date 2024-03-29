@@ -33,6 +33,24 @@ namespace StyleShopping.DAO
 
                 using (var MySale = new styleContext())
                 {
+                    styles = MySale.Styles.Where(x => x.Status == 1).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return styles;
+
+        }
+        public List<Style> ListAdmin()
+        {
+            List<Style> styles;
+            try
+            {
+
+                using (var MySale = new styleContext())
+                {
                     styles = MySale.Styles.ToList();
                 }
             }
@@ -43,7 +61,7 @@ namespace StyleShopping.DAO
             return styles;
 
         }
-        
+
 
         public Style Get(int id)
         {
@@ -60,6 +78,54 @@ namespace StyleShopping.DAO
                 throw new Exception(e.Message);
             }
             return style;
+        }
+        public void Add(Style style)
+        {
+            try
+            {
+                Style c = Get(style.Id);
+                if (c == null)
+                {
+                    using (var MySale = new styleContext())
+                    {
+                        MySale.Styles.Add(style);
+                        MySale.SaveChanges();
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("The style is already exist");
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void Update(Style style)
+        {
+            try
+            {
+                Style p = Get(style.Id);
+                if (p != null)
+                {
+                    using (var MySale = new styleContext())
+                    {
+                        MySale.Entry<Style>(style).State = EntityState.Modified;
+                        MySale.SaveChanges();
+                    }
+                }
+                else
+                {
+                    throw new Exception("The style does not exist");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

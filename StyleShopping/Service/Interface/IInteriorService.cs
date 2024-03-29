@@ -20,5 +20,7 @@ namespace Service.Interface
         public IEnumerable<Category> ListCategory();
 
         Interior Get(int id);
+
+        List<Interior> ListAdmin();
     }
 }

@@ -1,0 +1,59 @@
+﻿@page
+@model StyleShopping.Pages.DetailProjectModel
+<section class="project-details-section">
+    <div class="project-detail">
+        <div class="auto-container">
+            <!-- Upper Box -->
+            <div class="upper-box">
+                <!--Project Tabs-->
+                <div class="project-tabs tabs-box clearfix">
+                    <!--Tab Btns-->
+                   
+
+                    <!--Tabs Container-->
+                    <div class="tabs-content">
+                        <!--Tab / Active Tab-->
+                        <div class="tab active-tab" id="tab-1">
+                            <figure class="image"><img src="@Model.project.Image" alt=""></figure>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Lower Content-->
+            <div class="lower-content">
+                <div class="row clearfix">
+                    <!--Content Column-->
+                    <div class="content-column col-lg-8 col-md-12 col-sm-12">
+                        <div class="inner-column">
+                            <h2>Project Description</h2>
+                            <p>@Model.project.Detail</p>
+                            
+                           
+                            <h4>RESULT</h4>
+                            <p>@Model.project.Result</p>
+                        </div>
+                    </div>
+
+                    <!--Info Column-->
+                    <div class="info-column col-lg-4 col-md-12 col-sm-12 ">
+                        <div class="inner-column wow fadeInRight">
+                            <h3>Project Information</h3>
+                            <p>@Model.project.Information</p>
+                            <ul class="info-list">
+                                <li><strong>Location :</strong> @Model.project.Location</li>
+                                <li><strong>Surface Area :</strong> @Model.project.Area m2</li>
+                                <li><strong>Year Completed :</strong> @Model.project.CompleteYear</li>
+                                <li><strong>Value :</strong> $@Model.project.Value</li>
+                            </ul>
+
+                            <!--Help Box-->
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

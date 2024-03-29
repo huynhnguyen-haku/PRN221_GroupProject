@@ -1,0 +1,167 @@
+﻿@page
+@model StyleShopping.Pages.ShowCartModel
+<section class="cart-section">
+    <div class="auto-container">
+        <!--Cart Outer-->
+        <div class="cart-outer">
+            <div class="table-outer">
+                <table class="cart-table">
+                    <thead class="cart-header">
+                        <tr>
+                            <th>Preview</th>
+                            <th class="prod-column">Product</th>
+                            <th class="price">Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(Model.list != null)
+                        {
+                            @foreach (var item in Model.list)
+                            {
+                                <tr>
+                                    <td class="prod-column">
+                                        <div class="column-box">
+                                            <figure class="prod-thumb"><a asp-page="./Detail" asp-route-id="@item.Interior.Id"><img src="@item.Interior.Image" alt=""></a></figure>
+                                        </div>
+                                    </td>
+                                    <td><h4 class="prod-title">@item.Interior.Name</h4></td>
+                                    <td class="sub-total">$@item.Interior.Price</td>
+                                    <td class="qty">
+                                        <div class="item-quantity">
+                                            <form method="post">
+                                                <input class="quantity-spinner quantity-input" type="number" data-product-id="@item.InteriorId" value="@item.Quantity" onchange="this.form.submit()" min="1" name="quantity">
+                                                <input class="quantity-spinner" type="hidden" value="@item.QuotationDetailId" name="id">
+
+                                            </form>
+
+                                        </div>
+                                    </td>
+                                    <td class="total">$@(item.Quantity * item.Interior.Price)</td>
+                                    <td><a asp-page="./RemoveCart" asp-route-id="@item.QuotationDetailId" class="remove-btn"><span class="fa fa-remove"></span></a></td>
+                                </tr>
+                            }
+                        }
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+
+           
+        </div>
+        @if(Model.list != null)
+        {
+            <div class="row justify-content-between mt-5">
+                <div class="column pull-right col-lg-12 col-md-12 col-sm-12">
+                    <!--Totals Table-->
+                    <ul class="totals-table">
+                        <li><h3>Cart Totals</h3></li>
+                        <li class="clearfix total"><span class="col">Total</span><span class="col price">$@Model.total</span></li>
+                    </ul>
+                </div>
+                <div class="column pull-left col-lg-12 col-md-12 col-sm-12">
+                    <div class="shipping-block">
+                        <div class="inner-box">
+                            <h4 style="font-weight:bold">Order Information</h4>
+
+                            <!-- Shipping Form -->
+                            <div class="shipping-form">
+                                <!--Shipping Form-->
+                                <form method="post" asp-page-handler="Submit">
+                                    <div class="row clearfix">
+                                        
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <label>Choose Style</label>
+                                            <select  class="form-control" asp-for="order.StyleId">
+                                                @foreach (var item in Model.listS)
+                                                {
+                                                    <option value="@item.Id">@item.Name : @item.PricePerSquare $ / 1 m2</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mt-1">Choose Type House</label>
+                                            <select  class="form-control" asp-for="order.TypeHouseId">
+                                                @foreach (var item in Model.listT)
+                                                {
+                                                    <option value="@item.Id">@item.Name : @item.PricePerSquare $ / 1 m2</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                       
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mt-1">Choose Background</label>
+                                            <select  class="form-control" asp-for="order.BackgroundId">
+                                                @foreach (var item in Model.listB)
+                                                {
+                                                    <option value="@item.Id">@item.Name : @item.PricePerSquare $ / 1 m2</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mt-1">Choose Wall</label>
+                                            <select class="form-control" asp-for="order.WallId">
+                                                @foreach (var item in Model.listW)
+                                                {
+                                                    <option value="@item.Id">@item.Name : @item.PricePerSquare $ / 1 m2</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mt-1">Choose Ceil</label>
+                                            <select  class="form-control" asp-for="order.CeilId">
+                                                @foreach (var item in Model.listC)
+                                                {
+                                                    <option value="@item.Id">@item.Name : @item.PricePerSquare $ / 1 m2</option>
+                                                }
+
+                                            </select>
+                                        </div>
+                                       
+                                        <div class="col-md-12 col-sm-12 mt-1">
+                                            <label class="mt-3">Fill Square House</label>
+                                            <input type="number" class="form-control" asp-for="order.Width" min="1" required placeholder="Width">
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 mt-1">
+                                            <input type="number" class="form-control"  asp-for="order.Long" min="1" required placeholder="Long">
+                                        </div>
+                                        <div class="col-md-12 col-sm-12 mt-1">
+                                            <input type="number" class="form-control" asp-for="order.Height" min="1" required placeholder="Height">
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 mt-5">
+                                            <label>Fill Contact</label>
+                                            <input type="text" class="form-control"  asp-for="order.Address" required placeholder="Address">
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <input type="text" class="form-control"  asp-for="order.Phone" required placeholder="Phone">
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12">
+                                            <input type="text" class="form-control" asp-for="order.Note" required placeholder="Note">
+                                        </div>
+                                        <div class="form-group col-md-12 col-sm-12 text-center">
+                                            <button class="theme-btn totals-btn" type="submit" name="submit-form">Order</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        }
+        
+    </div>
+</section>
+

@@ -1,0 +1,72 @@
+﻿@page
+@model StyleShopping.Pages.LoginModel
+<section class="login-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="column col-lg-6 col-md-12 col-sm-12">
+                <span style="color:red">@Model.error</span>
+                <h2>Login</h2>
+
+                <!-- Login Form -->
+                <div class="login-form">
+                    <!--Login Form-->
+                    <form method="post" asp-page-handler="Login">
+                        <div class="form-group">
+                            <label>Enter Your Username</label>
+                            <input type="text" name="username" placeholder="Name " required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Enter Your Password</label>
+                            <input type="password" name="password" placeholder="Password" required>
+                        </div>
+
+                        <div class="clearfix">
+                            <div class="pull-right">
+                                <div class="form-group no-margin">
+                                    <button class="theme-btn btn-style-one" type="submit" name="submit-form">LOGIN</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--End Login Form -->
+            </div>
+
+            <div class="column col-lg-6 col-md-12 col-sm-12">
+                <span style="color:red">@Model.errorRegister</span>
+                <span style="color:green">@Model.success</span>
+                <h2>Register</h2>
+
+                <!-- Register Form -->
+                <div class="login-form register-form">
+                    <!--Login Form-->
+                    <form method="post" asp-page-handler="Submit">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" asp-for="account.Username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" asp-for="account.Password" required>
+                        </div>
+                         <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" asp-for="account.Phone" required>
+                        </div>
+                         <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" asp-for="account.Address" required>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button class="theme-btn btn-style-one" type="submit" name="submit-form">Register</button>
+                        </div>
+                    </form>
+                </div>
+                <!--End Register Form -->
+            </div>
+        </div>
+    </div>
+</section>
