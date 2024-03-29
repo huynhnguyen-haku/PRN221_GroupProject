@@ -1,0 +1,80 @@
+﻿@page
+@model StyleShopping.Pages.Staff.ProjectManageModel
+<section class="cart-section">
+    <div class="auto-container">
+        <!--Cart Outer-->
+        <div class="cart-outer">
+            <div class="table-outer">
+
+
+                <a class="theme-btn btn-style-one" asp-page="./ProjectAdd">Create</a>
+
+
+
+                <table class="cart-table">
+                    <thead class="cart-header">
+                        <tr>
+                            <th>Image</th>
+                            <th class="price">Area</th>
+                            <th class="price">Complete Year</th>
+                            <th class="price">Value</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.list)
+                        {
+                            <tr>
+                                <td class="prod-column">
+                                    <div class="column-box">
+                                        <figure class="prod-thumb"><img src="@item.Image" alt=""></figure>
+                                    </div>
+                                </td>
+                                <td class="sub-total">@item.Area m2</td>
+                                <td class="sub-total">@item.CompleteYear</td>
+                                <td class="sub-total">@item.Value $</td>
+                                <td class="total">
+                                    @if (item.Status == 0)
+                                    {
+                                        <span style="color:red">Block</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color:green">Active</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.Status == 0)
+                                    {
+                                        <a asp-page="./ProjectActive" asp-route-id="@item.Id" class="remove-btn"><span class="fa fa-unlock"></span></a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-page="./ProjectBlock" asp-route-id="@item.Id" class="remove-btn"><span class="fa fa-lock"></span></a>
+                                    }
+                                    <a asp-page="./ProjectEdit" asp-route-id="@item.Id" class="remove-btn"><span class="fa fa-pencil"></span></a>
+                                </td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+                <div class="styled-pagination mt-2">
+                    <ul class="clearfix">
+                        @for (int i = 1; i <= Model.totalPage; i++)
+                        {
+                            <li class="@(Model.indexPage == i ? "active":"")"><a asp-page="./ProjectManage" asp-route-id="@i">@i</a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</section>

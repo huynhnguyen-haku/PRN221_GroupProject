@@ -1,0 +1,62 @@
+﻿@page
+@model StyleShopping.Pages.Staff.ProjectAddModel
+<div class="column col-lg-12 col-md-12 col-sm-12 mt-5">
+    <h2>Add Project</h2>
+
+    <!-- Register Form -->
+    <div class="login-form register-form">
+        <!--Login Form-->
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Image</label>
+                <input type="text" asp-for="project.Image" required>
+                <span asp-validation-for="project.Image" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Detail</label>
+                <input type="text" asp-for="project.Detail" required>
+                <span asp-validation-for="project.Detail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Information</label><br />
+                <input class="form-control" type="text" asp-for="project.Information" required>
+                <span asp-validation-for="project.Information" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Result</label>
+                <input type="text" asp-for="project.Result" required>
+                <span asp-validation-for="project.Result" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" asp-for="project.Location" required>
+                <span asp-validation-for="project.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Area</label>
+                <input class="form-control" type="number" min="0" asp-for="project.Area" required>
+                <span asp-validation-for="project.Area" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Complete Year</label>
+                <input class="form-control" type="number" min="0" asp-for="project.CompleteYear" required>
+                <span asp-validation-for="project.CompleteYear" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Value</label>
+                <input class="form-control" type="number" min="0" asp-for="project.Value" required>
+                <span asp-validation-for="project.Value" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-right">
+                <button class="theme-btn btn-style-one" type="submit" name="submit-form">Add</button>
+            </div>
+            <div class="form-group text-right">
+                <a class="theme-btn btn-style-one" name="submit-form" href="ProjectManage">Back To List</a>
+            </div>
+        </form>
+    </div>
+    <!--End Register Form -->
+</div>

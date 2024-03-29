@@ -1,0 +1,37 @@
+﻿@page
+@model StyleShopping.Pages.Staff.BlogAddModel
+<div class="column col-lg-12 col-md-12 col-sm-12 mt-5">
+    <h2>Add Blog</h2>
+
+    <!-- Register Form -->
+    <div class="login-form register-form">
+        <!--Login Form-->
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" asp-for="blog.Title" required>
+                <span asp-validation-for="blog.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Image</label>
+                <input type="text" asp-for="blog.Image" required>
+                <span asp-validation-for="blog.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Detail</label>
+                <input type="text" asp-for="blog.Detail" required>
+                <span asp-validation-for="blog.Detail" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-right">
+                <button class="theme-btn btn-style-one" type="submit" name="submit-form">Add</button>
+            </div>
+            <div class="form-group text-right">
+                <a class="theme-btn btn-style-one" name="submit-form" href="BlogManage">Back To List</a>
+            </div>
+        </form>
+    </div>
+    <!--End Register Form -->
+</div>
