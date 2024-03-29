@@ -64,5 +64,72 @@ namespace DAO
             }
             return blog;
         }
+
+        public List<Blog> ListAdmin()
+        {
+            List<Blog> blogs;
+            try
+            {
+
+                using (var MySale = new styleContext())
+                {
+                    blogs = MySale.Blogs.Include(x => x.Account).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return blogs;
+
+        }
+        public void Add(Blog blog)
+        {
+            try
+            {
+                Blog c = Get(blog.Id);
+                if (c == null)
+                {
+                    using (var MySale = new styleContext())
+                    {
+                        MySale.Blogs.Add(blog);
+                        MySale.SaveChanges();
+                    }
+
+                }
+                else
+                {
+                    throw new Exception("The blog is already exist");
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void Update(Blog blog)
+        {
+            try
+            {
+                Blog p = Get(blog.Id);
+                if (p != null)
+                {
+                    using (var MySale = new styleContext())
+                    {
+                        MySale.Entry<Blog>(blog).State = EntityState.Modified;
+                        MySale.SaveChanges();
+                    }
+                }
+                else
+                {
+                    throw new Exception("The blog does not exist");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

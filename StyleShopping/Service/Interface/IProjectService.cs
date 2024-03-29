@@ -12,5 +12,12 @@ namespace Service.Interface
         public IEnumerable<Project> List();
 
         Project Get(int id);
+
+        public void Add(Project project);
+
+
+        public void Update(Project project);
+
+        List<Project> ListAdmin();
     }
 }

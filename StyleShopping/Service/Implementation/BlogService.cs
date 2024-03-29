@@ -21,5 +21,12 @@ namespace Service.Implementation
         public Blog Get(int id) => _repository.Get(id);
 
         public IEnumerable<Blog> List() => _repository.List();
+
+        public List<Blog> ListAdmin() => _repository.ListAdmin();
+
+
+        public void Add(Blog blog) => _repository.Add(blog);
+
+        public void Update(Blog blog) => _repository.Update(blog);
     }
 }

@@ -13,5 +13,10 @@ namespace Repository.Interface
 
 
         public Blog Get(int id);
+
+        void Add(Blog blog);
+        void Update(Blog blog);
+
+        List<Blog> ListAdmin();
     }
 }
