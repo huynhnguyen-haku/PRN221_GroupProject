@@ -10,10 +10,10 @@ namespace StyleShopping.Pages.Admin
     public class ManageOrderModel : PageModel
     {
         public List<Order> list { get; set; } = default!;
-        private readonly IQuotationService quotationService;
-        public ManageOrderModel()
+        private readonly IQuotationService _quotationService;
+        public ManageOrderModel(IQuotationService quotationService)
         {
-            quotationService = new QuotationService();
+            _quotationService = quotationService;
         }
         public List<OrderDTO> listO { get; set; } = default!;
         public IActionResult OnGetAsync()
@@ -28,7 +28,7 @@ namespace StyleShopping.Pages.Admin
                 {
                     return RedirectToPage("/AccessDenied");
                 }
-                list = quotationService.GetAllOrderAdmin();
+                list = _quotationService.GetAllOrderAdmin();
                 if (!list.Contains(null))
                 {
                     listO = new List<OrderDTO>();
@@ -45,7 +45,7 @@ namespace StyleShopping.Pages.Admin
                         o.totalStylePrice = ((int)item.Height * (int)item.Width) * ((int)item.Style.PricePerSquare + (int)item.Ceil.PricePerSquare + (int)item.TypeHouse.PricePerSquare + (int)item.Background.PricePerSquare) +
                             ((int)item.Long + (int)item.Width) * (int)item.Height * 2 * (int)item.Wall.PricePerSquare;
                         o.status = (int)item.Status;
-                        var details = quotationService.GetAllOrderDetail(item.OrderId);
+                        var details = _quotationService.GetAllOrderDetail(item.OrderId);
                         foreach (var i in details)
                         {
                             totalCart += (int)i.Quantity * (int)i.Interior.Price;

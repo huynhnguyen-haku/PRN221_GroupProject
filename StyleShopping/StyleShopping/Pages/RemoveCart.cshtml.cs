@@ -7,10 +7,10 @@ namespace StyleShopping.Pages
 {
     public class RemoveCartModel : PageModel
     {
-        private readonly IQuotationService quotationService;
-        public RemoveCartModel()
+        private readonly IQuotationService _quotationService;
+        public RemoveCartModel(IQuotationService quotationService)
         {
-            quotationService = new QuotationService();
+            _quotationService = quotationService;
         }
         public IActionResult OnGetAsync(int id)
         {
@@ -22,7 +22,7 @@ namespace StyleShopping.Pages
             {
                 return RedirectToPage("/AccessDenied");
             }
-            quotationService.RemoveQuotationDetail(id);
+            _quotationService.RemoveQuotationDetail(id);
             return RedirectToPage("./ShowCart");
         }
     }

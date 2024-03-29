@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class AddBlogModel : PageModel
     {
-        private readonly IBlogService blogService;
+        private readonly IBlogService _blogService;
 
-        public AddBlogModel()
+        public AddBlogModel(IBlogService blogService)
         {
-            blogService = new BlogService();
+            _blogService = blogService;
         }
         [BindProperty]
         public Blog blog { get; set; } = default!;
@@ -41,8 +41,8 @@ namespace StyleShopping.Pages.Admin
             blog.Status = 1;
             blog.CreateDate = DateTime.Now;
             blog.AccountId = HttpContext.Session.GetInt32("user_id");
-            blogService.Add(blog);
-            int totalInter = blogService.ListAdmin().Count;
+            _blogService.Add(blog);
+            int totalInter = _blogService.ListAdmin().Count;
             int? index = (totalInter % 5) == 0 ? (totalInter / 5) : (totalInter / 5) + 1;
             return RedirectToPage("ManageBlog", new { id = index });
         }

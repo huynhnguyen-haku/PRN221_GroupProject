@@ -10,17 +10,17 @@ namespace StyleShopping.Pages
     public class StyleModel : PageModel
     {
         public IEnumerable<Style> list { get; set; } = default!;
-        private readonly IStyleService styleService;
+        private readonly IStyleService _styleService;
         public int totalPage { get; set; } = default!;
         public int? indexPage { get; set; } = 1;
-        public StyleModel()
+        public StyleModel(IStyleService styleService)
         {
-            styleService = new StyleService();
+            _styleService = styleService;
         }
         public IActionResult OnGetAsync(int? id)
         {
             indexPage = id == null ? 1: id;
-            list = styleService.List();
+            list = _styleService.List();
             if (list.Count() % 3 == 0)
             {
                 totalPage = list.Count() / 3;

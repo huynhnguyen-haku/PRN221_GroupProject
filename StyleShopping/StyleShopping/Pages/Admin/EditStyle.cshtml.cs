@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class EditStyleModel : PageModel
     {
-        private readonly IStyleService styleService;
+        private readonly IStyleService _styleService;
 
-        public EditStyleModel()
+        public EditStyleModel(IStyleService styleService)
         {
-            styleService = new StyleService();
+            _styleService = styleService;
         }
         [BindProperty]
         public Style style { get; set; } = default!;
@@ -26,7 +26,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            style = styleService.Get(id);
+            style = _styleService.Get(id);
             return Page();
         }
         public IActionResult OnPostAsync()
@@ -40,7 +40,7 @@ namespace StyleShopping.Pages.Admin
                 return RedirectToPage("/AccessDenied");
             }
             int count = 0;
-            foreach (var item in styleService.ListAdmin())
+            foreach (var item in _styleService.ListAdmin())
             {
                 count++;
                 if (item.Id == style.Id)
@@ -50,7 +50,7 @@ namespace StyleShopping.Pages.Admin
             }
             style.Status = 1;
             int? indexPage = (count - 1) / 5 + 1;
-            styleService.Update(style);
+            _styleService.Update(style);
 
             return RedirectToPage("ManageStyle", new { id = indexPage });
         }

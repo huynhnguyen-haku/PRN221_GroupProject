@@ -8,17 +8,17 @@ namespace StyleShopping.Pages.Admin
 {
     public class BeUserModel : PageModel
     {
-        private readonly IAccountService accountService;
+        private readonly IAccountService _accountService;
 
-        public BeUserModel()
+        public BeUserModel(IAccountService accountService)
         {
-            accountService = new AccountService();
+            _accountService = accountService;
         }
         public IActionResult OnGetAsync(int id)
         {
 
             int count = 0;
-            foreach (var item in accountService.ListAdmin())
+            foreach (var item in _accountService.ListAdmin())
             {
                 count++;
                 if (item.Id == id)
@@ -26,10 +26,10 @@ namespace StyleShopping.Pages.Admin
                     break;
                 }
             }
-            Account account = accountService.Get(id);
+            Account account = _accountService.Get(id);
             account.Role = 0;
             int? indexPage = (count - 1) / 5 + 1;
-            accountService.Update(account);
+            _accountService.Update(account);
             return RedirectToPage("ManageAccount", new { id = indexPage });
         }
     }

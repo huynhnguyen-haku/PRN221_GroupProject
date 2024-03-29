@@ -9,17 +9,17 @@ namespace StyleShopping.Pages
     public class ProjectModel : PageModel
     {
         public IEnumerable<Project> list { get; set; } = default!;
-        private readonly IProjectService projectService;
+        private readonly IProjectService _projectService;
         public int totalPage { get; set; } = default!;
         public int? indexPage { get; set; } = 1;
-        public ProjectModel()
+        public ProjectModel(IProjectService projectService)
         {
-            projectService = new ProjectService();
+            _projectService = projectService;
         }
         public IActionResult OnGetAsync(int? id)
         {
             indexPage = id == null ? 1 : id;
-            list = projectService.List();
+            list = _projectService.List();
             if (list.Count() % 3 == 0)
             {
                 totalPage = list.Count() / 3;

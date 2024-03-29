@@ -10,14 +10,14 @@ namespace StyleShopping.Pages.Admin
     {
         public IEnumerable<Blog> list { get; set; } = default!;
 
-        private readonly IBlogService blogService;
+        private readonly IBlogService _blogService;
 
         public int totalPage { get; set; } = default!;
         public int? indexPage { get; set; } = 1;
 
-        public ManageBlogModel()
+        public ManageBlogModel(IBlogService blogService)
         {
-            blogService = new BlogService();
+            _blogService = blogService;
         }
         public IActionResult OnGetAsync(int? id)
         {
@@ -30,7 +30,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            list = blogService.ListAdmin();
+            list = _blogService.ListAdmin();
             if (list.Count() % 5 == 0)
             {
                 totalPage = list.Count() / 5;

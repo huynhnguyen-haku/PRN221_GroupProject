@@ -9,17 +9,17 @@ namespace StyleShopping.Pages
     public class BlogModel : PageModel
     {
         public IEnumerable<Blog> list { get; set; } = default!;
-        private readonly IBlogService blogService;
+        private readonly IBlogService _blogService;
         public int totalPage { get; set; } = default!;
         public int? indexPage { get; set; } = 1;
-        public BlogModel()
+        public BlogModel(IBlogService blogService)
         {
-            blogService = new BlogService();
+           _blogService = blogService;
         }
         public IActionResult OnGetAsync(int? id)
         {
             indexPage = id == null ? 1 : id;
-            list = blogService.List();
+            list = _blogService.List();
             if (list.Count() % 3 == 0)
             {
                 totalPage = list.Count() / 3;

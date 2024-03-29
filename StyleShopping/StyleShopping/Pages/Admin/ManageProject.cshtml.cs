@@ -10,14 +10,14 @@ namespace StyleShopping.Pages.Admin
     {
         public IEnumerable<Project> list { get; set; } = default!;
 
-        private readonly IProjectService projectService;
+        private readonly IProjectService _projectService;
 
         public int totalPage { get; set; } = default!;
         public int? indexPage { get; set; } = 1;
 
-        public ManageProjectModel()
+        public ManageProjectModel(IProjectService projectService)
         {
-            projectService = new ProjectService();
+            _projectService = projectService;
         }
         public IActionResult OnGetAsync(int? id)
         {
@@ -30,7 +30,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            list = projectService.ListAdmin();
+            list = _projectService.ListAdmin();
             if (list.Count() % 5 == 0)
             {
                 totalPage = list.Count() / 5;

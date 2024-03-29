@@ -8,11 +8,11 @@ namespace StyleShopping.Pages
 {
     public class LoginModel : PageModel
     {
-        private readonly IAccountService accountService;
+        private readonly IAccountService _accountService;
 
-        public LoginModel()
+        public LoginModel(IAccountService accountService)
         {
-            accountService = new AccountService();
+            _accountService = accountService;
         }
         public IActionResult OnGetAsync()
         {
@@ -30,7 +30,7 @@ namespace StyleShopping.Pages
         {
             string username = Request.Form["username"];
             string password = Request.Form["password"];
-            var account = accountService.getByNameAndPass(username, password);
+            var account = _accountService.getByNameAndPass(username, password);
             if(account == null)
             {
                 error = "Wrong Account";
@@ -59,7 +59,7 @@ namespace StyleShopping.Pages
         }
         public IActionResult OnPostSubmitAsync()
         {
-            if (accountService.getByName(account.Username) != null)
+            if (_accountService.getByName(account.Username) != null)
             {
                 errorRegister = "Username : " + account.Username + " already exist";
                 return Page();
@@ -72,7 +72,7 @@ namespace StyleShopping.Pages
             success = "Register successfully";
             account.Status = 1;
             account.Role = 0;
-            accountService.Add(account);
+            _accountService.Add(account);
 
             return Page();
 

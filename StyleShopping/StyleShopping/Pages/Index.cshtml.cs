@@ -10,16 +10,16 @@ namespace StyleShopping.Pages
     {
         public IEnumerable<Interior> list { get; set; } = default!;
         public IEnumerable<Category> listC { get; set; } = default!;
-        private readonly IInteriorService interService;
+        private readonly IInteriorService _interService;
 
         public int totalPage { get; set; } = default!;
         public int? indexPage { get; set; } = 1;
         public int? cate_id { get; set; } = 0;
 
         public int? original_cate { get; set; } = 0;
-        public IndexModel()
-        { 
-            interService = new InteriorService();
+        public IndexModel(IInteriorService interService)
+        {
+            _interService = interService;
         }
         public IActionResult OnGetAsync(int? id1,int? id2)
         {
@@ -33,7 +33,7 @@ namespace StyleShopping.Pages
             }
             cate_id = id1;
             
-            list = interService.List(cate_id);
+            list = _interService.List(cate_id);
             if (list.Count() % 6 == 0)
             {
                 totalPage = list.Count() / 6;
@@ -52,7 +52,7 @@ namespace StyleShopping.Pages
                 list = list.Skip(((int)indexPage - 1) * 6).Take(6);
             }
             original_cate = cate_id;
-             listC = interService.ListCategory();
+             listC = _interService.ListCategory();
             return Page();
         }
     }

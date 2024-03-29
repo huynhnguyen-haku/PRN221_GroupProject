@@ -8,17 +8,17 @@ namespace StyleShopping.Pages.Admin
 {
     public class BlockStyleModel : PageModel
     {
-        private readonly IStyleService styleService;
+        private readonly IStyleService _styleService;
 
-        public BlockStyleModel()
+        public BlockStyleModel(IStyleService styleService)
         {
-            styleService = new StyleService();
+            _styleService = styleService;
         }
         public IActionResult OnGetAsync(int id)
         {
 
             int count = 0;
-            foreach (var item in styleService.ListAdmin())
+            foreach (var item in _styleService.ListAdmin())
             {
                 count++;
                 if (item.Id == id)
@@ -26,10 +26,10 @@ namespace StyleShopping.Pages.Admin
                     break;
                 }
             }
-            Style style = styleService.Get(id);
+            Style style = _styleService.Get(id);
             style.Status = 0;
             int? indexPage = (count - 1) / 5 + 1;
-            styleService.Update(style);
+            _styleService.Update(style);
             return RedirectToPage("ManageStyle", new { id = indexPage });
         }
     }

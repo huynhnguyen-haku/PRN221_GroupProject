@@ -8,15 +8,15 @@ namespace StyleShopping.Pages
 {
     public class DetailProjectModel : PageModel
     {
-        private readonly IProjectService projectService;
-        public DetailProjectModel()
+        private readonly IProjectService _projectService;
+        public DetailProjectModel(IProjectService projectService)
         {
-            projectService = new ProjectService();
+            _projectService = projectService;
         }
         public Project project { get; set; } = default!;
         public IActionResult OnGetAsync(int id)
         {
-            project = projectService.Get(id);
+            project = _projectService.Get(id);
             return Page();
         }
     }

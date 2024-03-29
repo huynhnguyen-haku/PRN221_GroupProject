@@ -12,14 +12,14 @@ namespace StyleShopping.Pages.Admin
         public int totalCart = 0;
         public int totalDesign = 0;
         public Order order { get; set; } = default!;
-        private readonly IQuotationService quotationService;
-        public OrderDetailModel()
+        private readonly IQuotationService _quotationService;
+        public OrderDetailModel(IQuotationService quotationService)
         {
-            quotationService = new QuotationService();
+            _quotationService = quotationService;
         }
         public IActionResult OnGetAsync(int id)
         {
-            list = quotationService.GetAllOrderDetail(id);
+            list = _quotationService.GetAllOrderDetail(id);
             if (list != null)
             {
                 foreach (var item in list)
@@ -27,8 +27,8 @@ namespace StyleShopping.Pages.Admin
                     totalCart += (int)item.Quantity * (int)item.Interior.Price;
                 }
             }
-            order = quotationService.GetOrder(id);
-            list = quotationService.GetAllOrderDetail(id);
+            order = _quotationService.GetOrder(id);
+            list = _quotationService.GetAllOrderDetail(id);
             totalDesign = ((int)order.Height * (int)order.Width) * ((int)order.Style.PricePerSquare + (int)order.Ceil.PricePerSquare + (int)order.TypeHouse.PricePerSquare + (int)order.Background.PricePerSquare) +
                             ((int)order.Long + (int)order.Width) * (int)order.Height * 2 * (int)order.Wall.PricePerSquare;
             return Page();

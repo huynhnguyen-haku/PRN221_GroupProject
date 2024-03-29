@@ -8,11 +8,11 @@ namespace StyleShopping.Pages
 {
     public class ProfileModel : PageModel
     {
-        private readonly IAccountService accountService;
+        private readonly IAccountService _accountService;
 
-        public ProfileModel()
+        public ProfileModel(IAccountService accountService)
         {
-            accountService = new AccountService();
+            _accountService = accountService;
         }
         public string success { get; set; } = default!;
 
@@ -31,7 +31,7 @@ namespace StyleShopping.Pages
                 return RedirectToPage("/AccessDenied");
             }
             int a_id = (int)HttpContext.Session.GetInt32("user_id");
-            account = accountService.Get(a_id);
+            account = _accountService.Get(a_id);
             return Page();
 
         }
@@ -51,7 +51,7 @@ namespace StyleShopping.Pages
                 return Page();
             }
             success = "Update successfully";
-            accountService.Update(account);
+            _accountService.Update(account);
             return Page();
 
         }

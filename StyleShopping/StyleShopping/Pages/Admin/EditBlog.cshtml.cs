@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class EditBlogModel : PageModel
     {
-        private readonly IBlogService blogService;
+        private readonly IBlogService _blogService;
 
-        public EditBlogModel()
+        public EditBlogModel(IBlogService blogService)
         {
-            blogService = new BlogService();
+            _blogService = blogService;
         }
         [BindProperty]
         public Blog blog { get; set; } = default!;
@@ -26,7 +26,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            blog = blogService.Get(id);
+            blog = _blogService.Get(id);
             return Page();
         }
         public IActionResult OnPostAsync()
@@ -40,7 +40,7 @@ namespace StyleShopping.Pages.Admin
                 return RedirectToPage("/AccessDenied");
             }
             int count = 0;
-            foreach (var item in blogService.ListAdmin())
+            foreach (var item in _blogService.ListAdmin())
             {
                 count++;
                 if (item.Id == blog.Id)
@@ -50,7 +50,7 @@ namespace StyleShopping.Pages.Admin
             }
             blog.Status = 1;
             int? indexPage = (count - 1) / 5 + 1;
-            blogService.Update(blog);
+            _blogService.Update(blog);
 
             return RedirectToPage("ManageBlog", new { id = indexPage });
         }

@@ -7,10 +7,10 @@ namespace StyleShopping.Pages
 {
     public class CancelOrderModel : PageModel
     {
-        private readonly IQuotationService quotationService;
-        public CancelOrderModel()
+        private readonly IQuotationService _quotationService;
+        public CancelOrderModel(IQuotationService quotationService)
         {
-            quotationService = new QuotationService();
+            _quotationService = quotationService;
         }
         public IActionResult OnGetAsync(int id)
         {
@@ -22,7 +22,7 @@ namespace StyleShopping.Pages
             {
                 return RedirectToPage("/AccessDenied");
             }
-            quotationService.CancelOrder(id);
+            _quotationService.CancelOrder(id);
             return RedirectToPage("./MyOrder");
         }
     }

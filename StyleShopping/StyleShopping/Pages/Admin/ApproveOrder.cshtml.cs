@@ -7,10 +7,10 @@ namespace StyleShopping.Pages.Admin
 {
     public class ApproveOrderModel : PageModel
     {
-        private readonly IQuotationService quotationService;
-        public ApproveOrderModel()
+        private readonly IQuotationService _quotationService;
+        public ApproveOrderModel(IQuotationService quotationService)
         {
-            quotationService = new QuotationService();
+            _quotationService = quotationService;
         }
         public IActionResult OnGetAsync(int id)
         {
@@ -22,7 +22,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            quotationService.ApproveOrder(id);
+            _quotationService.ApproveOrder(id);
             return RedirectToPage("./ManageOrder");
         }
     }

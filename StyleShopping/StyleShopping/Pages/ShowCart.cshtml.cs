@@ -9,12 +9,12 @@ namespace StyleShopping.Pages
 {
     public class ShowCartModel : PageModel
     {
-        private readonly IQuotationService quotationService;
-        private readonly IStyleService styleService;
-        public ShowCartModel()
+        private readonly IQuotationService _quotationService;
+        private readonly IStyleService _styleService;
+        public ShowCartModel(IQuotationService quotationService, IStyleService styleService)
         {
-            quotationService = new QuotationService();
-            styleService = new StyleService();
+            _quotationService = quotationService;
+            _styleService = styleService;
         }
         public int total = 0;
         public List<QuotationDetail> list = new List<QuotationDetail>();
@@ -37,7 +37,7 @@ namespace StyleShopping.Pages
                 return RedirectToPage("/AccessDenied");
             }
             int a_id = (int)HttpContext.Session.GetInt32("user_id");
-            list = quotationService.GetCart(a_id);
+            list = _quotationService.GetCart(a_id);
             if(list != null)
             {
                 foreach (var item in list)
@@ -46,11 +46,11 @@ namespace StyleShopping.Pages
                 }
             }
             
-            listS = styleService.List();
-            listW = quotationService.GetAllWall();
-            listT = quotationService.GetAllTypeHouse();
-            listC = quotationService.GetAllCeil();
-            listB = quotationService.GetAllBackground();
+            listS = _styleService.List();
+            listW = _quotationService.GetAllWall();
+            listT = _quotationService.GetAllTypeHouse();
+            listC = _quotationService.GetAllCeil();
+            listB = _quotationService.GetAllBackground();
             return Page();
         }
         public IActionResult OnPostAsync()
@@ -66,19 +66,19 @@ namespace StyleShopping.Pages
             int a_id = (int)HttpContext.Session.GetInt32("user_id");
             int id = int.Parse(Request.Form["id"]);
             int quantity = int.Parse(Request.Form["quantity"]);
-            QuotationDetail q = quotationService.GetQuotationDetail(id);
+            QuotationDetail q = _quotationService.GetQuotationDetail(id);
             q.Quantity = quantity;
-            quotationService.UpdateQuotationDetail(q);
-            list = quotationService.GetCart(a_id);
+            _quotationService.UpdateQuotationDetail(q);
+            list = _quotationService.GetCart(a_id);
             foreach (var item in list)
             {
                 total += (int)item.Quantity * (int)item.Interior.Price;
             }
-            listS = styleService.List();
-            listW = quotationService.GetAllWall();
-            listT = quotationService.GetAllTypeHouse();
-            listC = quotationService.GetAllCeil();
-            listB = quotationService.GetAllBackground();
+            listS = _styleService.List();
+            listW = _quotationService.GetAllWall();
+            listT = _quotationService.GetAllTypeHouse();
+            listC = _quotationService.GetAllCeil();
+            listB = _quotationService.GetAllBackground();
             return Page();
         }
         public IActionResult OnPostSubmitAsync()
@@ -93,9 +93,9 @@ namespace StyleShopping.Pages
             }
             int a_id = (int)HttpContext.Session.GetInt32("user_id");
             order.UserId = a_id;
-            List<QuotationDetail> carts = quotationService.GetCart(a_id);
-            quotationService.AddOrder(order, carts);
-            quotationService.RemoveQuotation(a_id);
+            List<QuotationDetail> carts = _quotationService.GetCart(a_id);
+            _quotationService.AddOrder(order, carts);
+            _quotationService.RemoveQuotation(a_id);
             return RedirectToPage("./MyOrder");
         }
          

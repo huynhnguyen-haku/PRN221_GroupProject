@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class AddInteriorModel : PageModel
     {
-        private readonly IInteriorService interService;
+        private readonly IInteriorService _interService;
 
-        public AddInteriorModel()
+        public AddInteriorModel(InteriorService interiorService)
         {
-            interService = new InteriorService();
+            _interService = interiorService;
         }
         public IEnumerable<Category> list { get; set; } = default!;
         [BindProperty]
@@ -27,7 +27,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            list = interService.ListCategory();
+            list = _interService.ListCategory();
             return Page();
         }
         public IActionResult OnPostAsync()
@@ -41,8 +41,8 @@ namespace StyleShopping.Pages.Admin
                 return RedirectToPage("/AccessDenied");
             }
             interior.Status = 1;
-            interService.Add(interior);
-            int totalInter = interService.ListAdmin().Count;
+            _interService.Add(interior);
+            int totalInter = _interService.ListAdmin().Count;
             int? index = (totalInter % 5) == 0 ? (totalInter / 5) : (totalInter / 5) + 1;
             return RedirectToPage("ManageInterior", new { id = index });
         }

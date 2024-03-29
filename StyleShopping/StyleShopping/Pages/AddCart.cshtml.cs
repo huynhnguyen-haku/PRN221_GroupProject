@@ -9,10 +9,10 @@ namespace StyleShopping.Pages
 {
     public class AddCartModel : PageModel
     {
-        private readonly IQuotationService quotationService;
-        public AddCartModel()
+        private readonly IQuotationService _quotationService;
+        public AddCartModel(IQuotationService quotationService)
         {
-            quotationService = new QuotationService();
+            _quotationService = quotationService;
         }
         public IActionResult OnGetAsync(int id,int? quantity)
         {

@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class EditProjectModel : PageModel
     {
-        private readonly IProjectService projectService;
+        private readonly IProjectService _projectService;
 
-        public EditProjectModel()
+        public EditProjectModel(IProjectService projectService)
         {
-            projectService = new ProjectService();
+            _projectService = projectService;
         }
         [BindProperty]
         public Project project { get; set; } = default!;
@@ -26,7 +26,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            project = projectService.Get(id);
+            project = _projectService.Get(id);
             return Page();
         }
         public IActionResult OnPostAsync()
@@ -40,7 +40,7 @@ namespace StyleShopping.Pages.Admin
                 return RedirectToPage("/AccessDenied");
             }
             int count = 0;
-            foreach (var item in projectService.ListAdmin())
+            foreach (var item in _projectService.ListAdmin())
             {
                 count++;
                 if (item.Id == project.Id)
@@ -50,7 +50,7 @@ namespace StyleShopping.Pages.Admin
             }
             project.Status = 1;
             int? indexPage = (count - 1) / 5 + 1;
-            projectService.Update(project);
+            _projectService.Update(project);
 
             return RedirectToPage("ManageProject", new { id = indexPage });
         }

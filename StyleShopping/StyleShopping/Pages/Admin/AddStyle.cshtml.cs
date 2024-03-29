@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class AddStyleModel : PageModel
     {
-        private readonly IStyleService styleService;
+        private readonly IStyleService _styleService;
 
-        public AddStyleModel()
+        public AddStyleModel(IStyleService styleService)
         {
-            styleService = new StyleService();
+            _styleService = styleService;
         }
         [BindProperty]
         public Style style { get; set; } = default!;
@@ -39,8 +39,8 @@ namespace StyleShopping.Pages.Admin
                 return RedirectToPage("/AccessDenied");
             }
             style.Status = 1;
-            styleService.Add(style);
-            int totalInter = styleService.ListAdmin().Count;
+            _styleService.Add(style);
+            int totalInter = _styleService.ListAdmin().Count;
             int? index = (totalInter % 5) == 0 ? (totalInter / 5) : (totalInter / 5) + 1;
             return RedirectToPage("ManageStyle", new { id = index });
         }

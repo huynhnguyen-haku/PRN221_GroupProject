@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class AddAccountModel : PageModel
     {
-        private readonly IAccountService accountService;
+        private readonly IAccountService _accountService;
 
-        public AddAccountModel()
+        public AddAccountModel(IAccountService accountService)
         {
-            accountService = new AccountService();
+            _accountService = accountService;
         }
         [BindProperty]
         public Account account { get; set; } = default!;
@@ -40,7 +40,7 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            if(accountService.getByName(account.Username) != null) { 
+            if(_accountService.getByName(account.Username) != null) { 
                 error = "Username : " + account.Username + " already exist";
                 return Page();
             }
@@ -50,8 +50,8 @@ namespace StyleShopping.Pages.Admin
                 return Page();
             }
             account.Status = 1;
-            accountService.Add(account);
-            int totalInter = accountService.ListAdmin().Count;
+            _accountService.Add(account);
+            int totalInter = _accountService.ListAdmin().Count;
             int? index = (totalInter % 5) == 0 ? (totalInter / 5) : (totalInter / 5) + 1;
             return RedirectToPage("ManageAccount", new { id = index });
         }

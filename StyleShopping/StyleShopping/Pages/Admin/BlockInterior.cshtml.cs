@@ -8,9 +8,9 @@ namespace StyleShopping.Pages.Admin
 {
     public class BlockModel : PageModel
     {
-        private readonly IInteriorService interService;
+        private readonly IInteriorService _interService;
 
-        public BlockModel()
+        public BlockModel(IInteriorService interService)
         {
             interService = new InteriorService();
         }
@@ -18,7 +18,7 @@ namespace StyleShopping.Pages.Admin
         {
 
             int count = 0;
-            foreach (var item in interService.ListAdmin())
+            foreach (var item in _interService.ListAdmin())
             {
                 count++;
                 if (item.Id == id)
@@ -26,10 +26,10 @@ namespace StyleShopping.Pages.Admin
                     break;
                 }
             }
-            Interior interior = interService.Get(id);
+            Interior interior = _interService.Get(id);
             interior.Status = 0;
             int? indexPage = (count - 1) / 5 + 1;
-            interService.Update(interior);
+            _interService.Update(interior);
             return RedirectToPage("ManageInterior", new { id = indexPage });
         }
     }

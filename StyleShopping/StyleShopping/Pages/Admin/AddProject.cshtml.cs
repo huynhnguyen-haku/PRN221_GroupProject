@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class AddProjectModel : PageModel
     {
-        private readonly IProjectService projectService;
+        private readonly IProjectService _projectService;
 
-        public AddProjectModel()
+        public AddProjectModel(IProjectService projectService)
         {
-            projectService = new ProjectService();
+            _projectService = projectService;
         }
         [BindProperty]
         public Project project { get; set; } = default!;
@@ -39,8 +39,8 @@ namespace StyleShopping.Pages.Admin
                 return RedirectToPage("/AccessDenied");
             }
             project.Status = 1;
-            projectService.Add(project);
-            int totalInter = projectService.ListAdmin().Count;
+            _projectService.Add(project);
+            int totalInter = _projectService.ListAdmin().Count;
             int? index = (totalInter % 5) == 0 ? (totalInter / 5) : (totalInter / 5) + 1;
             return RedirectToPage("ManageProject", new { id = index });
         }

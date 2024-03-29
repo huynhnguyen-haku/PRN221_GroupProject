@@ -8,11 +8,11 @@ namespace StyleShopping.Pages.Admin
 {
     public class EditInteriorModel : PageModel
     {
-        private readonly IInteriorService interService;
+        private readonly IInteriorService _interService;
 
-        public EditInteriorModel()
+        public EditInteriorModel(IInteriorService interService)
         {
-            interService = new InteriorService();
+            _interService = interService;
         }
         public IEnumerable<Category> list { get; set; } = default!;
         [BindProperty]
@@ -27,8 +27,8 @@ namespace StyleShopping.Pages.Admin
             {
                 return RedirectToPage("/AccessDenied");
             }
-            list = interService.ListCategory();
-            interior = interService.Get(id);
+            list = _interService.ListCategory();
+            interior = _interService.Get(id);
             return Page();
         }
         public IActionResult OnPostAsync()
@@ -42,7 +42,7 @@ namespace StyleShopping.Pages.Admin
                 return RedirectToPage("/AccessDenied");
             }
             int count = 0;
-            foreach (var item in interService.ListAdmin())
+            foreach (var item in _interService.ListAdmin())
             {
                 count++;
                 if(item.Id == interior.Id)
@@ -52,7 +52,7 @@ namespace StyleShopping.Pages.Admin
             }
             interior.Status = 1;
             int? indexPage = (count - 1) / 5 + 1;
-            interService.Update(interior);
+            _interService.Update(interior);
             
             return RedirectToPage("ManageInterior", new { id = indexPage });
         }

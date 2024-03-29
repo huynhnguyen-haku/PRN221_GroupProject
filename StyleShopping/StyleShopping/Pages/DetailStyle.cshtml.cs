@@ -9,19 +9,19 @@ namespace StyleShopping.Pages
 {
     public class DetailStyleModel : PageModel
     {
-        private readonly IStyleService styleService;
+        private readonly IStyleService _styleService;
         public IEnumerable<Style> list { get; set; } = default!;
-        public DetailStyleModel()
+        public DetailStyleModel(IStyleService styleService)
         {
-            styleService = new StyleService();
+            _styleService = styleService;
         }
         public Style style { get; set; } = default!;
         public int idNow { get; set; } = default!;
         public IActionResult OnGetAsync(int id)
         {
             idNow = id;
-            list = styleService.List();
-            style = styleService.Get(id);
+            list = _styleService.List();
+            style = _styleService.Get(id);
             return Page();
         }
     }

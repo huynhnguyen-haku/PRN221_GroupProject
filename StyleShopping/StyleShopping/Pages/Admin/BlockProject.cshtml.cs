@@ -8,17 +8,17 @@ namespace StyleShopping.Pages.Admin
 {
     public class BlockProjectModel : PageModel
     {
-        private readonly IProjectService projectService;
+        private readonly IProjectService _projectService;
 
-        public BlockProjectModel()
+        public BlockProjectModel(IProjectService projectService)
         {
-            projectService = new ProjectService();
+            _projectService = projectService;
         }
         public IActionResult OnGetAsync(int id)
         {
 
             int count = 0;
-            foreach (var item in projectService.ListAdmin())
+            foreach (var item in _projectService.ListAdmin())
             {
                 count++;
                 if (item.Id == id)
@@ -26,10 +26,10 @@ namespace StyleShopping.Pages.Admin
                     break;
                 }
             }
-            Project project = projectService.Get(id);
+            Project project = _projectService.Get(id);
             project.Status = 0;
             int? indexPage = (count - 1) / 5 + 1;
-            projectService.Update(project);
+            _projectService.Update(project);
             return RedirectToPage("ManageProject", new { id = indexPage });
         }
     }

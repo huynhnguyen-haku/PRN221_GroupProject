@@ -8,17 +8,17 @@ namespace StyleShopping.Pages.Admin
 {
     public class ActiveBlogModel : PageModel
     {
-        private readonly IBlogService blogService;
+        private readonly IBlogService _blogService;
 
-        public ActiveBlogModel()
+        public ActiveBlogModel(IBlogService blogService)
         {
-            blogService = new BlogService();
+            _blogService = blogService;
         }
         public IActionResult OnGetAsync(int id)
         {
 
             int count = 0;
-            foreach (var item in blogService.ListAdmin())
+            foreach (var item in _blogService.ListAdmin())
             {
                 count++;
                 if (item.Id == id)
@@ -26,10 +26,10 @@ namespace StyleShopping.Pages.Admin
                     break;
                 }
             }
-            Blog blog = blogService.Get(id);
+            Blog blog = _blogService.Get(id);
             blog.Status = 1;
             int? indexPage = (count - 1) / 5 + 1;
-            blogService.Update(blog);
+            _blogService.Update(blog);
             return RedirectToPage("ManageBlog", new { id = indexPage });
         }
     }
