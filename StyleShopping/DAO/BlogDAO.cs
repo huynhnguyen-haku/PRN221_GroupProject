@@ -47,7 +47,6 @@ namespace DAO
 
         }
 
-
         public Blog Get(int id)
         {
             Blog blog = null;

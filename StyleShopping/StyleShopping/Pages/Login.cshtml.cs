@@ -50,7 +50,7 @@ namespace StyleShopping.Pages
                 }
                 else
                 {
-                    return RedirectToPage("/Admin/ManageInterior");
+                    return RedirectToPage("/Staff/BlogManage");
                 }
                
                
