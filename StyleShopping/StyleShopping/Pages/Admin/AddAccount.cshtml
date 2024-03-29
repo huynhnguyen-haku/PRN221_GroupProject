@@ -1,4 +1,58 @@
 ﻿@page
 @model StyleShopping.Pages.Admin.AddAccountModel
-@{
-}
+<div class="column col-lg-12 col-md-12 col-sm-12 mt-5">
+    <h2>Add Account</h2>
+
+    <!-- Register Form -->
+    <div class="login-form register-form">
+        <!--Login Form-->
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <span style="color:red">@Model.error</span>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" asp-for="account.Username" required>
+                <span asp-validation-for="account.Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="text" asp-for="account.Password" required>
+                <span asp-validation-for="account.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" asp-for="account.Phone" required>
+                <span asp-validation-for="account.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" asp-for="account.Address" required>
+                <span asp-validation-for="account.Address" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label>Role</label>
+                <select class="form-control" asp-for="account.Role">
+
+                            <option value="2">
+                                 Staff
+                           </option>
+                    <option value="1">
+                        Admin
+                    </option>
+
+
+                </select>
+            </div>
+
+            <div class="form-group text-right">
+                <button class="theme-btn btn-style-one" type="submit" name="submit-form">Add</button>
+            </div>
+            <div class="form-group text-right">
+                <a class="theme-btn btn-style-one" name="submit-form" href="ManageAccount">Back To List</a>
+            </div>
+        </form>
+    </div>
+    <!--End Register Form -->
+</div>
+

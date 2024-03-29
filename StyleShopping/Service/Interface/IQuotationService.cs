@@ -29,12 +29,23 @@ namespace Service.Interface
 
         public QuotationDetail GetQuotationDetail(int id);
 
-        public void AddOrder(int userID, int square, int style, string phone, string note, string address, List<QuotationDetail> list);
+        public void AddOrder(Order o, List<QuotationDetail> list);
+        public void CancelOrder(int id);
+        public Order GetOrder(int id);
 
         public void RemoveQuotation(int userID);
 
-        public List<Order> GetAllOrder(int user_id) => QuotationDAO.Instance.GetAllOrder(user_id);
+        public List<Order> GetAllOrder(int user_id);
 
         public List<OrderDetail> GetAllOrderDetail(int id);
+
+
+        public List<TypeHouse> GetAllTypeHouse();
+
+        public List<CeilingHouse> GetAllCeil();
+
+        public List<Background> GetAllBackground();
+
+        public List<Wall> GetAllWall();
     }
 }

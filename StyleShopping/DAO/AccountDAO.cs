@@ -47,42 +47,90 @@ namespace DAO
             }
             return account;
         }
-
-        public List<Project> ListAdmin()
+        public Account GetByName(string username)
         {
-            List<Project> projects;
+            Account account = null;
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    account = MySale.Accounts.SingleOrDefault(x => x.Username.Equals(username));
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return account;
+        }
+        public Account GetByID(int id)
+        {
+            Account account = null;
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    account = MySale.Accounts.SingleOrDefault(x => x.Id == id);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return account;
+        }
+        public Account Get(int id)
+        {
+            Account account = null;
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    account = MySale.Accounts.SingleOrDefault(x => x.Id == id);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return account;
+        }
+
+        public List<Account> ListAdmin()
+        {
+            List<Account> accounts;
             try
             {
 
                 using (var MySale = new styleContext())
                 {
-                    projects = MySale.Projects.ToList();
+                    accounts = MySale.Accounts.ToList();
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return projects;
+            return accounts;
 
         }
-        public void Add(Project project)
+        public void Add(Account account)
         {
             try
             {
-                Project c = Get(project.Id);
+                Account c = Get(account.Id);
                 if (c == null)
                 {
                     using (var MySale = new styleContext())
                     {
-                        MySale.Projects.Add(project);
+                        MySale.Accounts.Add(account);
                         MySale.SaveChanges();
                     }
 
                 }
                 else
                 {
-                    throw new Exception("The project is already exist");
+                    throw new Exception("The account is already exist");
                 }
 
             }
@@ -91,22 +139,22 @@ namespace DAO
                 throw new Exception(e.Message);
             }
         }
-        public void Update(Project project)
+        public void Update(Account account)
         {
             try
             {
-                Project p = Get(project.Id);
+                Account p = Get(account.Id);
                 if (p != null)
                 {
                     using (var MySale = new styleContext())
                     {
-                        MySale.Entry<Project>(project).State = EntityState.Modified;
+                        MySale.Entry<Account>(account).State = EntityState.Modified;
                         MySale.SaveChanges();
                     }
                 }
                 else
                 {
-                    throw new Exception("The project does not exist");
+                    throw new Exception("The account does not exist");
                 }
             }
             catch (Exception e)

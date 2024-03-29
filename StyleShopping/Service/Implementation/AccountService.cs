@@ -21,5 +21,24 @@ namespace Service.Implementation
         {
             return _repository.getByNameAndPass(username, password);   
         }
+        public Account getByName(string username)
+        {
+            return _repository.getByName(username);
+        }
+
+        public Account Get(int id) => _repository.Get(id);
+
+
+        public List<Account> ListAdmin() => _repository.ListAdmin();
+
+
+        public void Add(Account account) => _repository.Add(account);
+
+        public void Update(Account account) => _repository.Update(account);
+
+        public Account GetByID(int id)
+        {
+            return _repository.GetByID(id);
+        }
     }
 }

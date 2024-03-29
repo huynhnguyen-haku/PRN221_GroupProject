@@ -6,11 +6,11 @@ using Service.Interface;
 
 namespace StyleShopping.Pages.Admin
 {
-    public class BlockAccountModel : PageModel
+    public class BeUserModel : PageModel
     {
         private readonly IAccountService accountService;
 
-        public BlockAccountModel()
+        public BeUserModel()
         {
             accountService = new AccountService();
         }
@@ -27,7 +27,7 @@ namespace StyleShopping.Pages.Admin
                 }
             }
             Account account = accountService.Get(id);
-            account.Status = 0;
+            account.Role = 0;
             int? indexPage = (count - 1) / 5 + 1;
             accountService.Update(account);
             return RedirectToPage("ManageAccount", new { id = indexPage });

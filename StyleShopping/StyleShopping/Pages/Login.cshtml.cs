@@ -1,3 +1,4 @@
+using BussinessObject;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Service.Implementation;
@@ -18,6 +19,12 @@ namespace StyleShopping.Pages
             return Page();
         }
         public string error { get; set; } = default!;
+        public string success { get; set; } = default!;
+
+        public string errorRegister { get; set; } = default!;
+
+        [BindProperty]
+        public Account account { get; set; } = default!;
 
         public IActionResult OnPostAsync()
         {
@@ -49,6 +56,26 @@ namespace StyleShopping.Pages
                
             }
             
+        }
+        public IActionResult OnPostSubmitAsync()
+        {
+            if (accountService.getByName(account.Username) != null)
+            {
+                errorRegister = "Username : " + account.Username + " already exist";
+                return Page();
+            }
+            if (account.Username.Length >= 100 || account.Password.Length >= 100 || account.Phone.Length >= 100 || account.Address.Length >= 100)
+            {
+                errorRegister = "All text is not over 100 characters";
+                return Page();
+            }
+            success = "Register successfully";
+            account.Status = 1;
+            account.Role = 0;
+            accountService.Add(account);
+
+            return Page();
+
         }
     }
 }
