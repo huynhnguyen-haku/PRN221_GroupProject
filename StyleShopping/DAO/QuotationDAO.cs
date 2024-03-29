@@ -47,6 +47,22 @@ namespace DAO
             }
             return quotation;
         }
+        public Order GetOrder(int id)
+        {
+            Order order = null;
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    order = MySale.Orders.Include(x => x.Style).Include(x => x.Ceil).Include(x => x.Background).Include(x => x.Wall).Include(x => x.TypeHouse).SingleOrDefault(x => x.OrderId == id);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return order;
+        }
         public Quotation AddQuotation(Quotation quotation)
         {
             try
@@ -133,8 +149,76 @@ namespace DAO
             {
                 using (var MySale = new styleContext())
                 {
-                    Order q = MySale.Orders.Include(x => x.Style).FirstOrDefault(x => x.UserId == user_id);
+                    Order q = MySale.Orders.Include(x => x.Style).Include(x => x.Ceil).Include(x => x.Background).Include(x => x.Wall).Include(x => x.TypeHouse).FirstOrDefault(x => x.UserId == user_id);
                     list.Add(q);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return list;
+        }
+        public List<TypeHouse> GetAllTypeHouse()
+        {
+            List<TypeHouse> list = new();
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                   
+                    list = MySale.TypeHouses.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return list;
+        }
+        public List<CeilingHouse> GetAllCeil()
+        {
+            List<CeilingHouse> list = new();
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+
+                    list = MySale.CeilingHouses.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return list;
+        }
+        public List<Wall> GetAllWall()
+        {
+            List<Wall> list = new();
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+
+                    list = MySale.Walls.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return list;
+        }
+        public List<Background> GetAllBackground()
+        {
+            List<Background> list = new();
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+
+                    list = MySale.Backgrounds.ToList();
                 }
             }
             catch (Exception e)
@@ -151,7 +235,10 @@ namespace DAO
                 using (var MySale = new styleContext())
                 {
                     Quotation q = MySale.Quotations.FirstOrDefault(x => x.AccountId == user_id);
-                    list = MySale.QuotationDetails.Include(x => x.Interior).Where(x => x.QuotationId == q.QuotationId).ToList();
+                    if (q != null)
+                    {
+                        list = MySale.QuotationDetails.Include(x => x.Interior).Where(x => x.QuotationId == q.QuotationId).ToList();
+                    }
                 }
             }
             catch (Exception e)
@@ -191,34 +278,44 @@ namespace DAO
                 throw new Exception(e.Message);
             }
         }
-        public void AddOrder(int userID,int square,int style,string phone,string note,string address,List<QuotationDetail> list)
+        public void AddOrder(Order o,List<QuotationDetail> list)
         {
             try
             {
                 using (var MySale = new styleContext())
                 {
-                    Order newOrder = new Order();
-                    newOrder.Square = square;
-                    newOrder.Address = address; 
-                    newOrder.Phone = phone;
-                    newOrder.Note = note;
-                    newOrder.UserId = userID;
-                    newOrder.StyleId = style;
-                    newOrder.OrderDate = DateTime.Now;
-                    newOrder.Status = 0;
-                    MySale.Orders.Add(newOrder);
+                    o.Status = 1;
+                    o.OrderDate = DateTime.Now;
+                    MySale.Orders.Add(o);
                     MySale.SaveChanges();
                     foreach (var item in list)
                     {
-                        OrderDetail o = new OrderDetail()
+                        OrderDetail od = new OrderDetail()
                         {
                             InteriorId = item.InteriorId,
                             Quantity = item.Quantity,
-                            OrderId = newOrder.OrderId
+                            OrderId = o.OrderId
                         };
-                        MySale.OrderDetails.Add(o); 
+                        MySale.OrderDetails.Add(od); 
                     }
 
+                    MySale.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void CancelOrder(int id)
+        {
+            try
+            {
+                using (var MySale = new styleContext())
+                {
+                    var order = MySale.Orders.FirstOrDefault(x => x.OrderId == id);
+                    order.Status = 0;
+                    MySale.Orders.Update(order);
                     MySale.SaveChanges();
                 }
             }

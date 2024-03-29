@@ -59,9 +59,9 @@ namespace Service.Implementation
             return _repository.GetQuotationDetail(id);
         }
 
-        public void AddOrder(int userID, int square, int style, string phone, string note, string address, List<QuotationDetail> list)
+        public void AddOrder(Order o, List<QuotationDetail> list)
         {
-            _repository.AddOrder(userID,square,style,phone,note,address,list);
+            _repository.AddOrder(o,list);
         }
 
         public void RemoveQuotation(int userID)
@@ -76,6 +76,36 @@ namespace Service.Implementation
         public List<OrderDetail> GetAllOrderDetail(int id)
         {
             return _repository.GetAllOrderDetail(id);
+        }
+
+        public List<TypeHouse> GetAllTypeHouse()
+        {
+            return _repository.GetAllTypeHouse();
+        }
+
+        public List<CeilingHouse> GetAllCeil()
+        {
+            return _repository.GetAllCeil();
+        }
+
+        public List<Background> GetAllBackground()
+        {
+            return _repository.GetAllBackground();
+        }
+
+        public List<Wall> GetAllWall()
+        {
+            return _repository.GetAllWall();
+        }
+
+        public Order GetOrder(int id)
+        {
+            return _repository.GetOrder(id);
+        }
+
+        public void CancelOrder(int id)
+        {
+           _repository.CancelOrder(id);
         }
     }
 }

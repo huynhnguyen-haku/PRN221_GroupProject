@@ -37,10 +37,11 @@ namespace StyleShopping.Pages
                     {
                         int totalCart = 0;
                         OrderDTO o = new OrderDTO();
-                        o.style = item.Style.Name;
-                        o.priceStyle = (int)item.Style.PricePerSquare;
-                        o.square = (int)item.Square;
-                        o.totalStylePrice = (int)item.Square * (int)item.Style.PricePerSquare;
+                        o.id = item.OrderId;
+                        o.orderDate = item.OrderDate;
+                        
+                        o.totalStylePrice = ((int)item.Height * (int)item.Width) * ((int)item.Style.PricePerSquare + (int)item.Ceil.PricePerSquare + (int)item.TypeHouse.PricePerSquare+(int)item.Background.PricePerSquare ) + 
+                            ((int)item.Long + (int)item.Width)*(int)item.Height*2*(int)item.Wall.PricePerSquare;
                         o.status = (int)item.Status;
                         var details = quotationService.GetAllOrderDetail(item.OrderId);
                         foreach (var i in details)

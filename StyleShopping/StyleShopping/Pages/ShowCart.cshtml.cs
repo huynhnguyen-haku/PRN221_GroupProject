@@ -19,6 +19,13 @@ namespace StyleShopping.Pages
         public int total = 0;
         public List<QuotationDetail> list = new List<QuotationDetail>();
         public IEnumerable<Style> listS = new List<Style>();
+        public IEnumerable<TypeHouse> listT = new List<TypeHouse>();
+        public IEnumerable<Background> listB = new List<Background>();
+        public IEnumerable<Wall> listW = new List<Wall>();
+        public IEnumerable<CeilingHouse> listC = new List<CeilingHouse>();
+
+        [BindProperty]
+        public Order order { get; set; } = default!;
         public IActionResult OnGetAsync()
         {
             if (HttpContext.Session.GetInt32("user_id") == null)
@@ -31,11 +38,19 @@ namespace StyleShopping.Pages
             }
             int a_id = (int)HttpContext.Session.GetInt32("user_id");
             list = quotationService.GetCart(a_id);
-            foreach(var item in list)
+            if(list != null)
             {
-                total += (int)item.Quantity * (int)item.Interior.Price;
+                foreach (var item in list)
+                {
+                    total += (int)item.Quantity * (int)item.Interior.Price;
+                }
             }
+            
             listS = styleService.List();
+            listW = quotationService.GetAllWall();
+            listT = quotationService.GetAllTypeHouse();
+            listC = quotationService.GetAllCeil();
+            listB = quotationService.GetAllBackground();
             return Page();
         }
         public IActionResult OnPostAsync()
@@ -60,6 +75,10 @@ namespace StyleShopping.Pages
                 total += (int)item.Quantity * (int)item.Interior.Price;
             }
             listS = styleService.List();
+            listW = quotationService.GetAllWall();
+            listT = quotationService.GetAllTypeHouse();
+            listC = quotationService.GetAllCeil();
+            listB = quotationService.GetAllBackground();
             return Page();
         }
         public IActionResult OnPostSubmitAsync()
@@ -73,13 +92,9 @@ namespace StyleShopping.Pages
                 return RedirectToPage("/AccessDenied");
             }
             int a_id = (int)HttpContext.Session.GetInt32("user_id");
-            int square = int.Parse(Request.Form["square"]);
-            int style = int.Parse(Request.Form["style"]);
-            string phone = Request.Form["phone"];
-            string address = Request.Form["address"];
-            string note = Request.Form["note"];
+            order.UserId = a_id;
             List<QuotationDetail> carts = quotationService.GetCart(a_id);
-            quotationService.AddOrder(a_id, square, style, phone, note, address, carts);
+            quotationService.AddOrder(order, carts);
             quotationService.RemoveQuotation(a_id);
             return RedirectToPage("./MyOrder");
         }
